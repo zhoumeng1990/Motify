@@ -22,7 +22,7 @@ namespace MotifyPackage
             InitializeComponent();
             mainControl = new MainControl();
             mainEntity = new MainEntity();
-            SetDragEvent(tb_file_path,tb_package_name,tb_loading_path,tb_icon_path,tb_app_name);
+            SetDragEvent(tb_file_path,tb_loading_path,tb_icon_path,tb_signer_path);
         }
 
         private void SetDragEvent(params TextBox[] tbs)
@@ -59,11 +59,28 @@ namespace MotifyPackage
                 mainEntity.IconPath = tb_icon_path.Text;
                 mainEntity.LoadingPaht = tb_loading_path.Text;
                 mainEntity.PackageName = tb_package_name.Text;
+                mainEntity.SignerPath = tb_signer_path.Text;
+                mainEntity.SignerPassword = tb_signer_password.Text;
                 mainControl.ExecuteProcess(mainEntity);
             }
         }
 
         private void Tb_file_path_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Tb_package_name_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Tb_signer_path_TextChanged(object sender, EventArgs e)
         {
 
         }

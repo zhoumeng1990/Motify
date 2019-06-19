@@ -1,0 +1,9 @@
+D:\code\C#\Motify\MotifyPackage\bin\Debug\MotifyPackage.exe
+D:\code\C#\Motify\MotifyPackage\bin\Debug\MotifyPackage.pdb
+D:\code\C#\Motify\MotifyPackage\obj\Debug\MotifyPackage.csprojAssemblyReference.cache
+D:\code\C#\Motify\MotifyPackage\obj\Debug\MotifyPackage.Main.resources
+D:\code\C#\Motify\MotifyPackage\obj\Debug\MotifyPackage.Properties.Resources.resources
+D:\code\C#\Motify\MotifyPackage\obj\Debug\MotifyPackage.csproj.GenerateResource.cache
+D:\code\C#\Motify\MotifyPackage\obj\Debug\MotifyPackage.csproj.CoreCompileInputs.cache
+D:\code\C#\Motify\MotifyPackage\obj\Debug\MotifyPackage.exe
+D:\code\C#\Motify\MotifyPackage\obj\Debug\MotifyPackage.pdb

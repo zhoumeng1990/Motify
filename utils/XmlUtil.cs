@@ -41,7 +41,7 @@ namespace MotifyPackage.utils
                     if (file.Name.Equals("AndroidManifest.xml"))
                     {
                         AnalysisManifestXML(file.FullName);
-                        continue;
+                        return;
                     }
                 }
             }
@@ -63,7 +63,6 @@ namespace MotifyPackage.utils
             if (!CommonUtil.IsEmpty(mainEntity.IconPath))
             {
                 //更换图标的操作
-                string iconValue = applicationNode.Attributes["android:icon"].Value;
                 if (File.Exists(mainEntity.IconPath))
                 {
                     string destDirectoryName = mainEntity.DirectoryName + "\\res\\drawable-xhdpi\\";
@@ -75,6 +74,7 @@ namespace MotifyPackage.utils
                 }
                 if (applicationNode.Attributes["android:roundIcon"] != null)
                 {
+                    //删除android:roundIcon节点
                     XmlElement xmlElement = (XmlElement)applicationNode;
                     xmlElement.RemoveAttribute("android:roundIcon");
                 }
@@ -83,9 +83,8 @@ namespace MotifyPackage.utils
             if (!CommonUtil.IsEmpty(mainEntity.PackageName))
             {
                 //更换应用名称的操作
-                applicationNode.Attributes["android:label"].Value = mainEntity.PackageName;
+                applicationNode.Attributes["android:label"].Value = mainEntity.AppName;
             }
-
 
             doc.Save(manifestPath);
             xmlCallback.MotifyPackageNameEnd();

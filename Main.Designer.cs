@@ -39,6 +39,10 @@
             this.tb_app_name = new System.Windows.Forms.TextBox();
             this.label_app_name = new System.Windows.Forms.Label();
             this.btn_one_key = new System.Windows.Forms.Button();
+            this.tb_signer_path = new System.Windows.Forms.TextBox();
+            this.label_signer_path = new System.Windows.Forms.Label();
+            this.tb_signer_password = new System.Windows.Forms.TextBox();
+            this.label_signer_password = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label_select
@@ -63,7 +67,7 @@
             // label_package_name
             // 
             this.label_package_name.AutoSize = true;
-            this.label_package_name.Location = new System.Drawing.Point(91, 104);
+            this.label_package_name.Location = new System.Drawing.Point(91, 88);
             this.label_package_name.Name = "label_package_name";
             this.label_package_name.Size = new System.Drawing.Size(83, 12);
             this.label_package_name.TabIndex = 2;
@@ -71,14 +75,15 @@
             // 
             // tb_package_name
             // 
-            this.tb_package_name.Location = new System.Drawing.Point(189, 101);
+            this.tb_package_name.Location = new System.Drawing.Point(189, 85);
             this.tb_package_name.Name = "tb_package_name";
             this.tb_package_name.Size = new System.Drawing.Size(264, 21);
             this.tb_package_name.TabIndex = 3;
+            this.tb_package_name.TextChanged += new System.EventHandler(this.Tb_package_name_TextChanged);
             // 
             // tb_loading_path
             // 
-            this.tb_loading_path.Location = new System.Drawing.Point(189, 279);
+            this.tb_loading_path.Location = new System.Drawing.Point(189, 208);
             this.tb_loading_path.Name = "tb_loading_path";
             this.tb_loading_path.Size = new System.Drawing.Size(264, 21);
             this.tb_loading_path.TabIndex = 5;
@@ -86,7 +91,7 @@
             // label_loading
             // 
             this.label_loading.AutoSize = true;
-            this.label_loading.Location = new System.Drawing.Point(91, 282);
+            this.label_loading.Location = new System.Drawing.Point(91, 211);
             this.label_loading.Name = "label_loading";
             this.label_loading.Size = new System.Drawing.Size(65, 12);
             this.label_loading.TabIndex = 4;
@@ -94,7 +99,7 @@
             // 
             // tb_icon_path
             // 
-            this.tb_icon_path.Location = new System.Drawing.Point(189, 162);
+            this.tb_icon_path.Location = new System.Drawing.Point(189, 126);
             this.tb_icon_path.Name = "tb_icon_path";
             this.tb_icon_path.Size = new System.Drawing.Size(264, 21);
             this.tb_icon_path.TabIndex = 7;
@@ -102,7 +107,7 @@
             // label_icon_path
             // 
             this.label_icon_path.AutoSize = true;
-            this.label_icon_path.Location = new System.Drawing.Point(91, 165);
+            this.label_icon_path.Location = new System.Drawing.Point(91, 129);
             this.label_icon_path.Name = "label_icon_path";
             this.label_icon_path.Size = new System.Drawing.Size(53, 12);
             this.label_icon_path.TabIndex = 6;
@@ -111,7 +116,7 @@
             // 
             // tb_app_name
             // 
-            this.tb_app_name.Location = new System.Drawing.Point(189, 220);
+            this.tb_app_name.Location = new System.Drawing.Point(189, 167);
             this.tb_app_name.Name = "tb_app_name";
             this.tb_app_name.Size = new System.Drawing.Size(264, 21);
             this.tb_app_name.TabIndex = 9;
@@ -119,7 +124,7 @@
             // label_app_name
             // 
             this.label_app_name.AutoSize = true;
-            this.label_app_name.Location = new System.Drawing.Point(91, 223);
+            this.label_app_name.Location = new System.Drawing.Point(91, 170);
             this.label_app_name.Name = "label_app_name";
             this.label_app_name.Size = new System.Drawing.Size(53, 12);
             this.label_app_name.TabIndex = 8;
@@ -135,11 +140,49 @@
             this.btn_one_key.UseVisualStyleBackColor = true;
             this.btn_one_key.Click += new System.EventHandler(this.Btn_one_key_Click);
             // 
+            // tb_signer_path
+            // 
+            this.tb_signer_path.Location = new System.Drawing.Point(189, 250);
+            this.tb_signer_path.Name = "tb_signer_path";
+            this.tb_signer_path.Size = new System.Drawing.Size(264, 21);
+            this.tb_signer_path.TabIndex = 12;
+            this.tb_signer_path.TextChanged += new System.EventHandler(this.Tb_signer_path_TextChanged);
+            // 
+            // label_signer_path
+            // 
+            this.label_signer_path.AutoSize = true;
+            this.label_signer_path.Location = new System.Drawing.Point(91, 253);
+            this.label_signer_path.Name = "label_signer_path";
+            this.label_signer_path.Size = new System.Drawing.Size(77, 12);
+            this.label_signer_path.TabIndex = 11;
+            this.label_signer_path.Text = "签名文件路径";
+            // 
+            // tb_signer_password
+            // 
+            this.tb_signer_password.Location = new System.Drawing.Point(189, 291);
+            this.tb_signer_password.Name = "tb_signer_password";
+            this.tb_signer_password.Size = new System.Drawing.Size(264, 21);
+            this.tb_signer_password.TabIndex = 14;
+            // 
+            // label_signer_password
+            // 
+            this.label_signer_password.AutoSize = true;
+            this.label_signer_password.Location = new System.Drawing.Point(91, 294);
+            this.label_signer_password.Name = "label_signer_password";
+            this.label_signer_password.Size = new System.Drawing.Size(77, 12);
+            this.label_signer_password.TabIndex = 13;
+            this.label_signer_password.Text = "签名文件密码";
+            this.label_signer_password.Click += new System.EventHandler(this.Label1_Click_1);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.tb_signer_password);
+            this.Controls.Add(this.label_signer_password);
+            this.Controls.Add(this.tb_signer_path);
+            this.Controls.Add(this.label_signer_path);
             this.Controls.Add(this.btn_one_key);
             this.Controls.Add(this.tb_app_name);
             this.Controls.Add(this.label_app_name);
@@ -171,6 +214,10 @@
         private System.Windows.Forms.TextBox tb_app_name;
         private System.Windows.Forms.Label label_app_name;
         private System.Windows.Forms.Button btn_one_key;
+        private System.Windows.Forms.TextBox tb_signer_path;
+        private System.Windows.Forms.Label label_signer_path;
+        private System.Windows.Forms.TextBox tb_signer_password;
+        private System.Windows.Forms.Label label_signer_password;
     }
 }
 

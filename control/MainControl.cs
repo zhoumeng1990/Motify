@@ -15,6 +15,7 @@ namespace MotifyPackage.control
 
         private MainEntity mainEntity;
         private XmlUtil xmlUtil;
+        private ProcessUtil processUtil;
 
         public MainControl()
         {
@@ -32,8 +33,8 @@ namespace MotifyPackage.control
             {
                 if (Path.GetExtension(pathName).Equals(".apk"))
                 {
-                    ProcessUtil processUtil = new ProcessUtil(this);
-                    processUtil.ExecuteCMD(pathName);
+                    processUtil = new ProcessUtil(this);
+                    processUtil.ExecuteDecodeCMD(pathName);
                 }
             }
             else
@@ -44,7 +45,7 @@ namespace MotifyPackage.control
 
         public void DosEnd()
         {
-            if (CommonUtil.IsEmpty(mainEntity.PackageName)){
+            /*if (CommonUtil.IsEmpty(mainEntity.PackageName)){
                 MotifyPackageNameEnd();
             }
             else
@@ -52,19 +53,28 @@ namespace MotifyPackage.control
                 mainEntity.DirectoryName = Path.GetDirectoryName(mainEntity.ApkPath) + "\\" + Path.GetFileNameWithoutExtension(mainEntity.ApkPath);
                 xmlUtil = new XmlUtil(this, mainEntity);
                 xmlUtil.AnalysisXML(mainEntity.DirectoryName);
-            }
+            }*/
+            mainEntity.DirectoryName = Path.GetDirectoryName(mainEntity.ApkPath) + "\\" + Path.GetFileNameWithoutExtension(mainEntity.ApkPath);
+            xmlUtil = new XmlUtil(this, mainEntity);
+            xmlUtil.AnalysisXML(mainEntity.DirectoryName);
+        }
+
+        public void BuildEnd()
+        {
+            processUtil.ExecuteSignerCMD(mainEntity);
         }
 
         public void MotifyPackageNameEnd()
         {
-            if (CommonUtil.IsEmpty(mainEntity.IconPath))
+            processUtil.ExecuteBuildCMD(mainEntity.ApkPath);
+            /*if (CommonUtil.IsEmpty(mainEntity.IconPath))
             {
                 MotifyAppNameEnd();
             }
             else
             {
                 MotifyIconEnd();
-            }
+            }*/
         }
 
         public void MotifyIconEnd()
@@ -81,5 +91,6 @@ namespace MotifyPackage.control
         {
             throw new NotImplementedException();
         }
+
     }
 }
