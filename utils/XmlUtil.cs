@@ -54,7 +54,39 @@ namespace MotifyPackage.utils
             XmlElement xmlNode = (XmlElement)doc.SelectSingleNode("manifest");
             string package = xmlNode.GetAttribute("package");
             Console.WriteLine("value is {0}", package);
-            xmlNode.Attributes["package"].Value = mainEntity.PackageName;
+            if (!CommonUtil.IsEmpty(mainEntity.PackageName)) {
+                xmlNode.Attributes["package"].Value = mainEntity.PackageName;
+            }
+
+            XmlNodeList xmlNodeList = doc.GetElementsByTagName("application");
+            XmlNode applicationNode = xmlNodeList.Item(0);
+            if (!CommonUtil.IsEmpty(mainEntity.IconPath))
+            {
+                //更换图标的操作
+                string iconValue = applicationNode.Attributes["android:icon"].Value;
+                if (File.Exists(mainEntity.IconPath))
+                {
+                    string destDirectoryName = mainEntity.DirectoryName + "\\res\\drawable-xhdpi\\";
+                    if (Directory.Exists(destDirectoryName))
+                    {
+                        File.Copy(mainEntity.IconPath, destDirectoryName + Path.GetFileName(mainEntity.IconPath), true);
+                        applicationNode.Attributes["android:icon"].Value = "@drawable/" + Path.GetFileNameWithoutExtension(mainEntity.IconPath);
+                    }
+                }
+                if (applicationNode.Attributes["android:roundIcon"] != null)
+                {
+                    XmlElement xmlElement = (XmlElement)applicationNode;
+                    xmlElement.RemoveAttribute("android:roundIcon");
+                }
+            }
+
+            if (!CommonUtil.IsEmpty(mainEntity.PackageName))
+            {
+                //更换应用名称的操作
+                applicationNode.Attributes["android:label"].Value = mainEntity.PackageName;
+            }
+
+
             doc.Save(manifestPath);
             xmlCallback.MotifyPackageNameEnd();
         }

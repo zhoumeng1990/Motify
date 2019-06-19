@@ -78,7 +78,7 @@
             // 
             // tb_loading_path
             // 
-            this.tb_loading_path.Location = new System.Drawing.Point(189, 159);
+            this.tb_loading_path.Location = new System.Drawing.Point(189, 279);
             this.tb_loading_path.Name = "tb_loading_path";
             this.tb_loading_path.Size = new System.Drawing.Size(264, 21);
             this.tb_loading_path.TabIndex = 5;
@@ -86,7 +86,7 @@
             // label_loading
             // 
             this.label_loading.AutoSize = true;
-            this.label_loading.Location = new System.Drawing.Point(91, 162);
+            this.label_loading.Location = new System.Drawing.Point(91, 282);
             this.label_loading.Name = "label_loading";
             this.label_loading.Size = new System.Drawing.Size(65, 12);
             this.label_loading.TabIndex = 4;
@@ -94,7 +94,7 @@
             // 
             // tb_icon_path
             // 
-            this.tb_icon_path.Location = new System.Drawing.Point(189, 217);
+            this.tb_icon_path.Location = new System.Drawing.Point(189, 162);
             this.tb_icon_path.Name = "tb_icon_path";
             this.tb_icon_path.Size = new System.Drawing.Size(264, 21);
             this.tb_icon_path.TabIndex = 7;
@@ -102,7 +102,7 @@
             // label_icon_path
             // 
             this.label_icon_path.AutoSize = true;
-            this.label_icon_path.Location = new System.Drawing.Point(91, 220);
+            this.label_icon_path.Location = new System.Drawing.Point(91, 165);
             this.label_icon_path.Name = "label_icon_path";
             this.label_icon_path.Size = new System.Drawing.Size(53, 12);
             this.label_icon_path.TabIndex = 6;
@@ -111,7 +111,7 @@
             // 
             // tb_app_name
             // 
-            this.tb_app_name.Location = new System.Drawing.Point(189, 277);
+            this.tb_app_name.Location = new System.Drawing.Point(189, 220);
             this.tb_app_name.Name = "tb_app_name";
             this.tb_app_name.Size = new System.Drawing.Size(264, 21);
             this.tb_app_name.TabIndex = 9;
@@ -119,7 +119,7 @@
             // label_app_name
             // 
             this.label_app_name.AutoSize = true;
-            this.label_app_name.Location = new System.Drawing.Point(91, 280);
+            this.label_app_name.Location = new System.Drawing.Point(91, 223);
             this.label_app_name.Name = "label_app_name";
             this.label_app_name.Size = new System.Drawing.Size(53, 12);
             this.label_app_name.TabIndex = 8;

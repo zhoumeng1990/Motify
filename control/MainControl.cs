@@ -57,12 +57,14 @@ namespace MotifyPackage.control
 
         public void MotifyPackageNameEnd()
         {
-            
-        }
-
-        public void MotifyLoadingEnd()
-        {
-            throw new NotImplementedException();
+            if (CommonUtil.IsEmpty(mainEntity.IconPath))
+            {
+                MotifyAppNameEnd();
+            }
+            else
+            {
+                MotifyIconEnd();
+            }
         }
 
         public void MotifyIconEnd()
@@ -71,6 +73,11 @@ namespace MotifyPackage.control
         }
 
         public void MotifyAppNameEnd()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MotifyLoadingEnd()
         {
             throw new NotImplementedException();
         }
