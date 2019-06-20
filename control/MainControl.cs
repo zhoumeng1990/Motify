@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -17,6 +18,7 @@ namespace MotifyPackage.control
         private MainEntity mainEntity;
         private XmlUtil xmlUtil;
         private ProcessUtil processUtil;
+        private FileUtil fileUtil;
 
         /**
          * 反编译
@@ -46,7 +48,8 @@ namespace MotifyPackage.control
         public void GetAliasEnd(string alias)
         {
             mainEntity.Alias = alias;
-            mainEntity.ChanneList = new FileUtil().GetChannelList(mainEntity.ChannePath);
+            fileUtil = new FileUtil();
+            mainEntity.ChanneList = fileUtil.GetChannelList(mainEntity.ChannePath);
             processUtil.ExecuteDecodeCMD(mainEntity.ApkPath);
         }
 
@@ -62,8 +65,54 @@ namespace MotifyPackage.control
             processUtil.ExecuteSignerCMD(mainEntity);
         }
 
+        public void SignerEnd()
+        {
+            if (mainEntity.ChanneList == null || mainEntity.ChanneList.Count < 1)
+            {
+                return;
+            }
+            else
+            {
+                mainEntity.ChanneList.RemoveAt(0);
+                if (mainEntity.ChanneList.Count > 0)
+                {
+                    fileUtil.ModifyChannel(mainEntity.DirectoryName, mainEntity.ChanneList[0]);
+                    processUtil.ExecuteBuildCMD(mainEntity.ApkPath);
+                }
+                else
+                {
+                    Thread thread = new Thread(new ThreadStart(ExecuteThread));
+                    thread.Start();
+                   
+                }
+            }
+        }
+
+        private void ExecuteThread()
+        {
+            Thread.Sleep(10000);
+            string[] files = Directory.GetFiles(mainEntity.DirectoryName + "\\dist");
+            foreach (string file in files)
+            {
+                if (!file.Contains("sign") && !file.Contains("temp"))
+                {
+                    try
+                    {
+                        File.Delete(file);
+                    }
+                    catch { }
+                }
+            }
+            System.Environment.Exit(0);
+        }
+
         public void ModifyPackageNameEnd()
         {
+            if (mainEntity.ChanneList==null || mainEntity.ChanneList.Count<1)
+            {
+                mainEntity.ChanneList.Add("0");
+            }
+            fileUtil.ModifyChannel(mainEntity.DirectoryName, mainEntity.ChanneList[0]);
             processUtil.ExecuteBuildCMD(mainEntity.ApkPath);
         }
 

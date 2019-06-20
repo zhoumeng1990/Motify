@@ -80,7 +80,7 @@ namespace MotifyPackage.utils
         {
             process.StartInfo.FileName = "cmd.exe";  //要执行的程序名
 
-            process.StartInfo.UseShellExecute = false;  ////不使用系统外壳程序启动进程
+            process.StartInfo.UseShellExecute = false;  //不使用系统外壳程序启动进程
             process.StartInfo.CreateNoWindow = true;  //不显示dos程序窗口
 
             //重新定向标准输入，输入，错误输出
@@ -133,16 +133,38 @@ namespace MotifyPackage.utils
         {
             Process process = new Process();  //创建进程对象
             InitProcess(process);
-
-            string outputSignerName = mainEntity.DirectoryName + "\\dist\\" + Path.GetFileNameWithoutExtension(mainEntity.ApkPath);
-            process.StandardInput.WriteLine("jarsigner -verbose -keystore ｛0｝ -signedjar D:\\ok\\motify\\game_base_588\\dist\\game_base_588_signer.apk D:\\ok\\motify\\game_base_588\\dist\\game_base_588.apk zero",mainEntity.SignerPath,mainEntity.DirectoryName);
-            process.StandardInput.WriteLine("123456");
+            // 改名方法
+            string directorySigner = mainEntity.DirectoryName + "\\dist\\" + Path.GetFileNameWithoutExtension(mainEntity.ApkPath) + mainEntity.ChanneList[0];
+            FileInfo fileInfo = new FileInfo(mainEntity.DirectoryName + "\\dist\\" + Path.GetFileName(mainEntity.ApkPath));
+            if (File.Exists(directorySigner))
+            {
+                File.Delete(directorySigner);
+            }
+            fileInfo.MoveTo(directorySigner + ".apk");
+            string outputSignerName = directorySigner +"_signer.apk";
+            string cmdStr = "jarsigner -verbose -keystore " + mainEntity.SignerPath + " -signedjar " + outputSignerName + " "+ directorySigner +".apk zero";
+            process.StandardInput.WriteLine(cmdStr);
+            process.StandardInput.WriteLine(mainEntity.SignerPassword);
             process.StandardInput.WriteLine("exit");
+            Console.WriteLine("11111111111"+ mainEntity.ChanneList[0]);
+            //process.BeginOutputReadLine();
+            //string strRst = process.StandardError.ReadToEnd(); //获取结果 
 
+            //process.OutputDataReceived += new DataReceivedEventHandler(OnDataReceived);
+            iProcess.SignerEnd();
             string strRst = process.StandardOutput.ReadToEnd(); //获取结果 
+            Console.WriteLine(strRst);
 
             process.WaitForExit();  //等待命令结束
             process.Close();  //进程结束
+        }
+
+        private static void OnDataReceived(object Sender, DataReceivedEventArgs e)
+        {
+            if (e.Data != null)
+            {
+                Console.WriteLine("e.Data:" + e.Data);
+            }
         }
     }
 }

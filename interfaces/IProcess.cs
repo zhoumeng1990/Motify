@@ -13,5 +13,7 @@ namespace MotifyPackage.control
         void DosEnd();
         //打包结束
         void BuildEnd();
+        //签名完成的回调
+        void SignerEnd();
     }
 }

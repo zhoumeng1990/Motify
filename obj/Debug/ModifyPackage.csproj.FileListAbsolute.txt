@@ -6,3 +6,4 @@ D:\code\C#\Motify\MotifyPackage\obj\Debug\ModifyPackage.csproj.GenerateResource.
 D:\code\C#\Motify\MotifyPackage\obj\Debug\ModifyPackage.csproj.CoreCompileInputs.cache
 D:\code\C#\Motify\MotifyPackage\obj\Debug\MotifyPackage.exe
 D:\code\C#\Motify\MotifyPackage\obj\Debug\MotifyPackage.pdb
+D:\code\C#\Motify\MotifyPackage\obj\Debug\ModifyPackage.csprojAssemblyReference.cache
