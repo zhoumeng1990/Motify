@@ -43,13 +43,17 @@
             this.label_signer_path = new System.Windows.Forms.Label();
             this.tb_signer_password = new System.Windows.Forms.TextBox();
             this.label_signer_password = new System.Windows.Forms.Label();
+            this.tb_alias = new System.Windows.Forms.TextBox();
+            this.label_alias = new System.Windows.Forms.Label();
+            this.tb_channel = new System.Windows.Forms.TextBox();
+            this.label_channel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label_select
             // 
             this.label_select.AllowDrop = true;
             this.label_select.AutoSize = true;
-            this.label_select.Location = new System.Drawing.Point(89, 45);
+            this.label_select.Location = new System.Drawing.Point(89, 21);
             this.label_select.Name = "label_select";
             this.label_select.Size = new System.Drawing.Size(71, 12);
             this.label_select.TabIndex = 0;
@@ -58,16 +62,17 @@
             // 
             // tb_file_path
             // 
-            this.tb_file_path.Location = new System.Drawing.Point(189, 42);
+            this.tb_file_path.Location = new System.Drawing.Point(189, 18);
             this.tb_file_path.Name = "tb_file_path";
             this.tb_file_path.Size = new System.Drawing.Size(264, 21);
             this.tb_file_path.TabIndex = 1;
+            this.tb_file_path.Text = "D:\\ok\\modify\\game_base_588.apk";
             this.tb_file_path.TextChanged += new System.EventHandler(this.Tb_file_path_TextChanged);
             // 
             // label_package_name
             // 
             this.label_package_name.AutoSize = true;
-            this.label_package_name.Location = new System.Drawing.Point(91, 88);
+            this.label_package_name.Location = new System.Drawing.Point(91, 61);
             this.label_package_name.Name = "label_package_name";
             this.label_package_name.Size = new System.Drawing.Size(83, 12);
             this.label_package_name.TabIndex = 2;
@@ -75,15 +80,16 @@
             // 
             // tb_package_name
             // 
-            this.tb_package_name.Location = new System.Drawing.Point(189, 85);
+            this.tb_package_name.Location = new System.Drawing.Point(189, 58);
             this.tb_package_name.Name = "tb_package_name";
             this.tb_package_name.Size = new System.Drawing.Size(264, 21);
             this.tb_package_name.TabIndex = 3;
+            this.tb_package_name.Text = "com.test.zero";
             this.tb_package_name.TextChanged += new System.EventHandler(this.Tb_package_name_TextChanged);
             // 
             // tb_loading_path
             // 
-            this.tb_loading_path.Location = new System.Drawing.Point(189, 208);
+            this.tb_loading_path.Location = new System.Drawing.Point(189, 174);
             this.tb_loading_path.Name = "tb_loading_path";
             this.tb_loading_path.Size = new System.Drawing.Size(264, 21);
             this.tb_loading_path.TabIndex = 5;
@@ -91,7 +97,7 @@
             // label_loading
             // 
             this.label_loading.AutoSize = true;
-            this.label_loading.Location = new System.Drawing.Point(91, 211);
+            this.label_loading.Location = new System.Drawing.Point(91, 177);
             this.label_loading.Name = "label_loading";
             this.label_loading.Size = new System.Drawing.Size(65, 12);
             this.label_loading.TabIndex = 4;
@@ -99,15 +105,16 @@
             // 
             // tb_icon_path
             // 
-            this.tb_icon_path.Location = new System.Drawing.Point(189, 126);
+            this.tb_icon_path.Location = new System.Drawing.Point(189, 97);
             this.tb_icon_path.Name = "tb_icon_path";
             this.tb_icon_path.Size = new System.Drawing.Size(264, 21);
             this.tb_icon_path.TabIndex = 7;
+            this.tb_icon_path.Text = "D:\\decompiling\\game\\res\\drawable-xhdpi\\abc_ic_star_black_48dp.png";
             // 
             // label_icon_path
             // 
             this.label_icon_path.AutoSize = true;
-            this.label_icon_path.Location = new System.Drawing.Point(91, 129);
+            this.label_icon_path.Location = new System.Drawing.Point(91, 100);
             this.label_icon_path.Name = "label_icon_path";
             this.label_icon_path.Size = new System.Drawing.Size(53, 12);
             this.label_icon_path.TabIndex = 6;
@@ -116,15 +123,16 @@
             // 
             // tb_app_name
             // 
-            this.tb_app_name.Location = new System.Drawing.Point(189, 167);
+            this.tb_app_name.Location = new System.Drawing.Point(189, 136);
             this.tb_app_name.Name = "tb_app_name";
             this.tb_app_name.Size = new System.Drawing.Size(264, 21);
             this.tb_app_name.TabIndex = 9;
+            this.tb_app_name.Text = "haha";
             // 
             // label_app_name
             // 
             this.label_app_name.AutoSize = true;
-            this.label_app_name.Location = new System.Drawing.Point(91, 170);
+            this.label_app_name.Location = new System.Drawing.Point(91, 139);
             this.label_app_name.Name = "label_app_name";
             this.label_app_name.Size = new System.Drawing.Size(53, 12);
             this.label_app_name.TabIndex = 8;
@@ -142,16 +150,17 @@
             // 
             // tb_signer_path
             // 
-            this.tb_signer_path.Location = new System.Drawing.Point(189, 250);
+            this.tb_signer_path.Location = new System.Drawing.Point(189, 214);
             this.tb_signer_path.Name = "tb_signer_path";
             this.tb_signer_path.Size = new System.Drawing.Size(264, 21);
             this.tb_signer_path.TabIndex = 12;
+            this.tb_signer_path.Text = "C:\\Users\\game\\Desktop\\zm.jks";
             this.tb_signer_path.TextChanged += new System.EventHandler(this.Tb_signer_path_TextChanged);
             // 
             // label_signer_path
             // 
             this.label_signer_path.AutoSize = true;
-            this.label_signer_path.Location = new System.Drawing.Point(91, 253);
+            this.label_signer_path.Location = new System.Drawing.Point(91, 217);
             this.label_signer_path.Name = "label_signer_path";
             this.label_signer_path.Size = new System.Drawing.Size(77, 12);
             this.label_signer_path.TabIndex = 11;
@@ -159,26 +168,66 @@
             // 
             // tb_signer_password
             // 
-            this.tb_signer_password.Location = new System.Drawing.Point(189, 291);
+            this.tb_signer_password.Location = new System.Drawing.Point(189, 255);
             this.tb_signer_password.Name = "tb_signer_password";
             this.tb_signer_password.Size = new System.Drawing.Size(264, 21);
             this.tb_signer_password.TabIndex = 14;
+            this.tb_signer_password.Text = "123456";
             // 
             // label_signer_password
             // 
             this.label_signer_password.AutoSize = true;
-            this.label_signer_password.Location = new System.Drawing.Point(91, 294);
+            this.label_signer_password.Location = new System.Drawing.Point(91, 258);
             this.label_signer_password.Name = "label_signer_password";
             this.label_signer_password.Size = new System.Drawing.Size(77, 12);
             this.label_signer_password.TabIndex = 13;
             this.label_signer_password.Text = "签名文件密码";
             this.label_signer_password.Click += new System.EventHandler(this.Label1_Click_1);
             // 
+            // tb_alias
+            // 
+            this.tb_alias.Location = new System.Drawing.Point(189, 295);
+            this.tb_alias.Name = "tb_alias";
+            this.tb_alias.Size = new System.Drawing.Size(264, 21);
+            this.tb_alias.TabIndex = 16;
+            // 
+            // label_alias
+            // 
+            this.label_alias.AutoSize = true;
+            this.label_alias.Location = new System.Drawing.Point(91, 298);
+            this.label_alias.Name = "label_alias";
+            this.label_alias.Size = new System.Drawing.Size(77, 12);
+            this.label_alias.TabIndex = 15;
+            this.label_alias.Text = "签名文件别名";
+            // 
+            // tb_channel
+            // 
+            this.tb_channel.AllowDrop = true;
+            this.tb_channel.Location = new System.Drawing.Point(189, 338);
+            this.tb_channel.Name = "tb_channel";
+            this.tb_channel.Size = new System.Drawing.Size(264, 21);
+            this.tb_channel.TabIndex = 18;
+            this.tb_channel.Text = "C:\\Users\\game\\Desktop\\test.txt";
+            this.tb_channel.TextChanged += new System.EventHandler(this.Tb_channel_TextChanged);
+            // 
+            // label_channel
+            // 
+            this.label_channel.AutoSize = true;
+            this.label_channel.Location = new System.Drawing.Point(91, 341);
+            this.label_channel.Name = "label_channel";
+            this.label_channel.Size = new System.Drawing.Size(53, 12);
+            this.label_channel.TabIndex = 17;
+            this.label_channel.Text = "渠道文件";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.tb_channel);
+            this.Controls.Add(this.label_channel);
+            this.Controls.Add(this.tb_alias);
+            this.Controls.Add(this.label_alias);
             this.Controls.Add(this.tb_signer_password);
             this.Controls.Add(this.label_signer_password);
             this.Controls.Add(this.tb_signer_path);
@@ -218,6 +267,10 @@
         private System.Windows.Forms.Label label_signer_path;
         private System.Windows.Forms.TextBox tb_signer_password;
         private System.Windows.Forms.Label label_signer_password;
+        private System.Windows.Forms.TextBox tb_alias;
+        private System.Windows.Forms.Label label_alias;
+        private System.Windows.Forms.TextBox tb_channel;
+        private System.Windows.Forms.Label label_channel;
     }
 }
 

@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace MotifyPackage.utils
 {
@@ -17,24 +18,62 @@ namespace MotifyPackage.utils
             this.iProcess = iProcess;
         }
 
-        public void ExecuteDecodeCMD(string fileName)
+        //获取别名
+        public void GetAlisa(MainEntity mainEntity)
         {
+            if (CommonUtil.IsEmpty(mainEntity.SignerPath))
+            {
+                MessageBox.Show("请输入签名文件");
+                return;
+            }
 
+            if (!File.Exists(mainEntity.SignerPath))
+            {
+                MessageBox.Show("请输入签名文件密码");
+                return;
+            }
             Process process = new Process();  //创建进程对象
             InitProcess(process);
-
-            //输入dos命令
-            process.StandardInput.WriteLine("cd {0}", Path.GetDirectoryName(fileName));
-            process.StandardInput.WriteLine("apktool d {0}", fileName);
+            process.StandardInput.WriteLine("keytool -list  -v -keystore " + mainEntity.SignerPath + " -storepass " + mainEntity.SignerPassword);
             process.StandardInput.WriteLine("exit");
 
             string strRst = process.StandardOutput.ReadToEnd(); //获取结果 
-            Console.WriteLine("已执行了：{0}", strRst);
 
             process.WaitForExit();  //等待命令结束
             process.Close();  //进程结束
+            string alias = "";
+            int startIndex;
+            int length;
+            if (strRst.Contains("Alias name"))
+            {
+                startIndex = strRst.IndexOf("Alias name");
+                length = strRst.IndexOf("Creation date");
+            }
+            else if (strRst.Contains("别名"))
+            {
+                startIndex = strRst.IndexOf("别名");
+                length = strRst.IndexOf("创建日期");
+            }
+            else
+            {
+                MessageBox.Show("签名密码错误");
+                return;
+            }
 
-            iProcess.DosEnd();
+            String[] strs = strRst.Substring(startIndex, length).Split(':');
+            if (strs != null && strs.Length > 0)
+            {
+                alias = strs[1];
+                //斩头去尾留中间
+                alias = alias.Substring(0, alias.IndexOf("\n")).TrimStart().TrimEnd();
+
+                Console.WriteLine("alias is:\n" + alias + alias.Length);
+            }
+            else
+            {
+                MessageBox.Show("签名密码错误");
+            }
+            iProcess.GetAliasEnd(alias);
         }
 
         private void InitProcess(Process process)
@@ -50,6 +89,25 @@ namespace MotifyPackage.utils
             process.StartInfo.RedirectStandardError = true;
 
             process.Start();  //进程开始
+        }
+
+        public void ExecuteDecodeCMD(string fileName)
+        {
+
+            Process process = new Process();  //创建进程对象
+            InitProcess(process);
+
+            //输入dos命令
+            process.StandardInput.WriteLine("cd {0}", Path.GetDirectoryName(fileName));
+            process.StandardInput.WriteLine("apktool d {0}", fileName);
+            process.StandardInput.WriteLine("exit");
+
+            string strRst = process.StandardOutput.ReadToEnd(); //获取结果 
+
+            process.WaitForExit();  //等待命令结束
+            process.Close();  //进程结束
+
+            iProcess.DosEnd();
         }
 
         public void ExecuteBuildCMD(string fileName)
@@ -71,26 +129,13 @@ namespace MotifyPackage.utils
             iProcess.BuildEnd();
         }
 
-        private string getAlisa(Process process, MainEntity mainEntity)
-        {
-            process.StandardInput.WriteLine("keytool -list  -v -keystore " + mainEntity.SignerPath + " -storepass " + mainEntity.SignerPassword);
-            string strRst = process.StandardOutput.ReadToEnd(); //获取结果 
-            return strRst;
-        }
-
         public void ExecuteSignerCMD(MainEntity mainEntity)
         {
             Process process = new Process();  //创建进程对象
             InitProcess(process);
-            //getAlisa(process, mainEntity);
-            //输入dos命令
 
-            //process.StandardInput.WriteLine("keytool -list  -v -keystore " + mainEntity.SignerPath + " -storepass " + mainEntity.SignerPassword);
-            //Console.WriteLine("keytool -list  -v -keystore C:\\Users\\game\\Desktop\\zm.jks -storepass 123456");
-            //string strsRst = process.StandardOutput.ReadToEnd(); //获取结果 
-           // Console.WriteLine(strsRst);
-
-            process.StandardInput.WriteLine("jarsigner -verbose -keystore C:\\Users\\game\\Desktop\\zm.jks -signedjar D:\\ok\\motify\\game_base_588\\dist\\game_base_588_signer.apk D:\\ok\\motify\\game_base_588\\dist\\game_base_588.apk zero");
+            string outputSignerName = mainEntity.DirectoryName + "\\dist\\" + Path.GetFileNameWithoutExtension(mainEntity.ApkPath);
+            process.StandardInput.WriteLine("jarsigner -verbose -keystore ｛0｝ -signedjar D:\\ok\\motify\\game_base_588\\dist\\game_base_588_signer.apk D:\\ok\\motify\\game_base_588\\dist\\game_base_588.apk zero",mainEntity.SignerPath,mainEntity.DirectoryName);
             process.StandardInput.WriteLine("123456");
             process.StandardInput.WriteLine("exit");
 
@@ -98,7 +143,6 @@ namespace MotifyPackage.utils
 
             process.WaitForExit();  //等待命令结束
             process.Close();  //进程结束
-            Console.WriteLine(strRst);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace MotifyPackage
             InitializeComponent();
             mainControl = new MainControl();
             mainEntity = new MainEntity();
-            SetDragEvent(tb_file_path,tb_loading_path,tb_icon_path,tb_signer_path);
+            SetDragEvent(tb_file_path,tb_loading_path,tb_icon_path,tb_signer_path,tb_channel);
         }
 
         private void SetDragEvent(params TextBox[] tbs)
@@ -61,6 +61,7 @@ namespace MotifyPackage
                 mainEntity.PackageName = tb_package_name.Text;
                 mainEntity.SignerPath = tb_signer_path.Text;
                 mainEntity.SignerPassword = tb_signer_password.Text;
+                mainEntity.ChannePath = tb_channel.Text;
                 mainControl.ExecuteProcess(mainEntity);
             }
         }
@@ -81,6 +82,11 @@ namespace MotifyPackage
         }
 
         private void Tb_signer_path_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Tb_channel_TextChanged(object sender, EventArgs e)
         {
 
         }

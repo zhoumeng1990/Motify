@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using System.Xml;
 
 namespace MotifyPackage.control
@@ -17,43 +18,40 @@ namespace MotifyPackage.control
         private XmlUtil xmlUtil;
         private ProcessUtil processUtil;
 
-        public MainControl()
-        {
-            
-        }
-
         /**
          * 反编译
          */
         public void ExecuteProcess(MainEntity mainEntity)
         {
             this.mainEntity = mainEntity;
-            string pathName = mainEntity.ApkPath;
-            if (File.Exists(pathName))
+            if (File.Exists(mainEntity.ApkPath))
             {
-                if (Path.GetExtension(pathName).Equals(".apk"))
+                if (Path.GetExtension(mainEntity.ApkPath).Equals(".apk"))
                 {
                     processUtil = new ProcessUtil(this);
-                    processUtil.ExecuteDecodeCMD(pathName);
+                    //processUtil.ExecuteDecodeCMD(pathName);
+                    processUtil.GetAlisa(mainEntity);
+                }
+                else
+                {
+                    MessageBox.Show("文件错误");
                 }
             }
             else
             {
-                Console.WriteLine("路径错误");
+                MessageBox.Show("路径错误");
             }
+        }
+
+        public void GetAliasEnd(string alias)
+        {
+            mainEntity.Alias = alias;
+            mainEntity.ChanneList = new FileUtil().GetChannelList(mainEntity.ChannePath);
+            processUtil.ExecuteDecodeCMD(mainEntity.ApkPath);
         }
 
         public void DosEnd()
         {
-            /*if (CommonUtil.IsEmpty(mainEntity.PackageName)){
-                MotifyPackageNameEnd();
-            }
-            else
-            {
-                mainEntity.DirectoryName = Path.GetDirectoryName(mainEntity.ApkPath) + "\\" + Path.GetFileNameWithoutExtension(mainEntity.ApkPath);
-                xmlUtil = new XmlUtil(this, mainEntity);
-                xmlUtil.AnalysisXML(mainEntity.DirectoryName);
-            }*/
             mainEntity.DirectoryName = Path.GetDirectoryName(mainEntity.ApkPath) + "\\" + Path.GetFileNameWithoutExtension(mainEntity.ApkPath);
             xmlUtil = new XmlUtil(this, mainEntity);
             xmlUtil.AnalysisXML(mainEntity.DirectoryName);
@@ -64,25 +62,17 @@ namespace MotifyPackage.control
             processUtil.ExecuteSignerCMD(mainEntity);
         }
 
-        public void MotifyPackageNameEnd()
+        public void ModifyPackageNameEnd()
         {
             processUtil.ExecuteBuildCMD(mainEntity.ApkPath);
-            /*if (CommonUtil.IsEmpty(mainEntity.IconPath))
-            {
-                MotifyAppNameEnd();
-            }
-            else
-            {
-                MotifyIconEnd();
-            }*/
         }
 
-        public void MotifyIconEnd()
+        public void ModifyIconEnd()
         {
             throw new NotImplementedException();
         }
 
-        public void MotifyAppNameEnd()
+        public void ModifyAppNameEnd()
         {
             throw new NotImplementedException();
         }
@@ -91,6 +81,5 @@ namespace MotifyPackage.control
         {
             throw new NotImplementedException();
         }
-
     }
 }

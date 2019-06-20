@@ -7,8 +7,8 @@ namespace MotifyPackage.interfaces
 {
     interface IXmlCallback
     {
-        void MotifyPackageNameEnd();
-        void MotifyIconEnd();
-        void MotifyAppNameEnd();
+        void ModifyPackageNameEnd();
+        void ModifyIconEnd();
+        void ModifyAppNameEnd();
     }
 }
