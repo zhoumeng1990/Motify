@@ -150,10 +150,10 @@ namespace MotifyPackage.utils
             //process.BeginOutputReadLine();
             //string strRst = process.StandardError.ReadToEnd(); //获取结果 
 
-            //process.OutputDataReceived += new DataReceivedEventHandler(OnDataReceived);
+            process.OutputDataReceived += new DataReceivedEventHandler(OnDataReceived);
             iProcess.SignerEnd();
-            string strRst = process.StandardOutput.ReadToEnd(); //获取结果 
-            Console.WriteLine(strRst);
+            //string strRst = process.StandardOutput.ReadToEnd(); //获取结果 
+            //Console.WriteLine(strRst);
 
             process.WaitForExit();  //等待命令结束
             process.Close();  //进程结束
