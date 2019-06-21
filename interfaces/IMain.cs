@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MotifyPackage.interfaces
 {
-    interface IMain
+    interface IFile
     {
         void MotifyLoadingEnd();
     }

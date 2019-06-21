@@ -135,9 +135,9 @@ namespace MotifyPackage.utils
             // 改名方法
             string directorySigner = mainEntity.DirectoryName + "\\dist\\" + Path.GetFileNameWithoutExtension(mainEntity.ApkPath) + mainEntity.ChanneList[0];
             FileInfo fileInfo = new FileInfo(mainEntity.DirectoryName + "\\dist\\" + Path.GetFileName(mainEntity.ApkPath));
-            if (File.Exists(directorySigner))
+            if (File.Exists(directorySigner + ".apk"))
             {
-                File.Delete(directorySigner);
+                File.Delete(directorySigner + ".apk");
             }
             fileInfo.MoveTo(directorySigner + ".apk");
             process.OutputDataReceived += new DataReceivedEventHandler(OnDataReceived);

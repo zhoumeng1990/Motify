@@ -12,7 +12,7 @@ using System.Xml;
 
 namespace MotifyPackage.control
 {
-    class MainControl : IMain, IProcess, IXmlCallback
+    class MainControl : IFile, IProcess, IXmlCallback
     {
 
         private MainEntity mainEntity;

@@ -49,7 +49,35 @@ namespace MotifyPackage.utils
 
         public void ModifyLoading(string directoryPath,string loadingPath)
         {
-            if (Directory.Exists(directoryPath + "\\res\\drawable"))
+
+            if (Directory.Exists(directoryPath + "\\res"))
+            {
+                List<string> drawableFilePaths = new List<string>();
+                string loadingName = Path.GetFileNameWithoutExtension(loadingPath);
+                string[] directorys = Directory.GetDirectories(directoryPath + "\\res");
+                foreach(string directoryName in directorys)
+                {
+                    if(directoryName.Contains("drawable")|| directoryName.Contains("mipmap"))
+                    {
+                        string[] files = Directory.GetFiles(directoryName);
+                        foreach(string fileName in files)
+                        {
+                            if (Path.GetFileNameWithoutExtension(fileName).Equals(loadingName))
+                            {
+                                drawableFilePaths.Add(fileName);
+                            }
+                        }
+                    }
+                }
+                drawableFilePaths.ForEach(drawable=> {
+                    File.Delete(drawable);
+                    drawable = Path.GetDirectoryName(drawable) +"\\" + Path.GetFileNameWithoutExtension(drawable) + Path.GetExtension(loadingPath);
+                    File.Copy(loadingPath, drawable);
+                    //File.Move(loadingPath, drawable);
+                });
+            }
+
+            /*if (Directory.Exists(directoryPath + "\\res\\drawable"))
             {
                 string filePath = directoryPath + "\\res\\drawable\\" + Path.GetFileName(loadingPath);
                 if (File.Exists(filePath))
@@ -68,7 +96,7 @@ namespace MotifyPackage.utils
                 filePath = directoryPath + "\\res\\drawable\\" + Path.GetFileNameWithoutExtension(filePath) + Path.GetExtension(loadingPath);
 
                 File.Move(loadingPath, filePath);
-            }
+            }*/
         }
     }
 }
