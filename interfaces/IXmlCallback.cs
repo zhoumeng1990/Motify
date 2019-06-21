@@ -8,7 +8,7 @@ namespace MotifyPackage.interfaces
     interface IXmlCallback
     {
         void ModifyPackageNameEnd();
-        void ModifyIconEnd();
+        void ModifyIcon(string iconName);
         void ModifyAppNameEnd();
     }
 }

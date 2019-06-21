@@ -115,9 +115,9 @@ namespace MotifyPackage.control
             MotifyLoadingEnd();
         }
 
-        public void ModifyIconEnd()
+        public void ModifyIcon(string iconName)
         {
-            throw new NotImplementedException();
+            fileUtil.ModifyLoading(mainEntity.DirectoryName, mainEntity.IconPath,iconName);
         }
 
         public void ModifyAppNameEnd()

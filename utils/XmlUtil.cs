@@ -65,12 +65,15 @@ namespace MotifyPackage.utils
                 //更换图标的操作
                 if (File.Exists(mainEntity.IconPath))
                 {
-                    string destDirectoryName = mainEntity.DirectoryName + "\\res\\drawable-xhdpi\\";
+                    string iconName = applicationNode.Attributes["android:icon"].Value;
+                    iconName = iconName.Substring(iconName.IndexOf("/")+1);
+                    xmlCallback.ModifyIcon(iconName);
+                    /*string destDirectoryName = mainEntity.DirectoryName + "\\res\\drawable-xhdpi\\";
                     if (Directory.Exists(destDirectoryName))
                     {
                         File.Copy(mainEntity.IconPath, destDirectoryName + Path.GetFileName(mainEntity.IconPath), true);
                         applicationNode.Attributes["android:icon"].Value = "@drawable/" + Path.GetFileNameWithoutExtension(mainEntity.IconPath);
-                    }
+                    }*/
                 }
                 if (applicationNode.Attributes["android:roundIcon"] != null)
                 {
