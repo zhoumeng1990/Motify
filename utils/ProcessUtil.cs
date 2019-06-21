@@ -6,13 +6,14 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace MotifyPackage.utils
 {
     class ProcessUtil
     {
-        private IProcess iProcess;
+        private readonly IProcess iProcess;
         public ProcessUtil(IProcess iProcess)
         {
             this.iProcess = iProcess;
@@ -86,7 +87,7 @@ namespace MotifyPackage.utils
             //重新定向标准输入，输入，错误输出
             process.StartInfo.RedirectStandardInput = true;
             process.StartInfo.RedirectStandardOutput = true;
-            process.StartInfo.RedirectStandardError = true;
+            process.StartInfo.RedirectStandardError = false;
 
             process.Start();  //进程开始
         }
@@ -101,8 +102,6 @@ namespace MotifyPackage.utils
             process.StandardInput.WriteLine("cd {0}", Path.GetDirectoryName(fileName));
             process.StandardInput.WriteLine("apktool d {0}", fileName);
             process.StandardInput.WriteLine("exit");
-
-            string strRst = process.StandardOutput.ReadToEnd(); //获取结果 
 
             process.WaitForExit();  //等待命令结束
             process.Close();  //进程结束
@@ -141,20 +140,19 @@ namespace MotifyPackage.utils
                 File.Delete(directorySigner);
             }
             fileInfo.MoveTo(directorySigner + ".apk");
+            process.OutputDataReceived += new DataReceivedEventHandler(OnDataReceived);
             string outputSignerName = directorySigner +"_signer.apk";
             string cmdStr = "jarsigner -verbose -keystore " + mainEntity.SignerPath + " -signedjar " + outputSignerName + " "+ directorySigner +".apk zero";
             process.StandardInput.WriteLine(cmdStr);
             process.StandardInput.WriteLine(mainEntity.SignerPassword);
             process.StandardInput.WriteLine("exit");
-            Console.WriteLine("11111111111"+ mainEntity.ChanneList[0]);
-            //process.BeginOutputReadLine();
+            process.BeginOutputReadLine();
             //string strRst = process.StandardError.ReadToEnd(); //获取结果 
 
-            process.OutputDataReceived += new DataReceivedEventHandler(OnDataReceived);
             iProcess.SignerEnd();
             //string strRst = process.StandardOutput.ReadToEnd(); //获取结果 
             //Console.WriteLine(strRst);
-
+            
             process.WaitForExit();  //等待命令结束
             process.Close();  //进程结束
         }

@@ -90,7 +90,7 @@ namespace MotifyPackage.control
         private void ExecuteThread()
         {
             Thread.Sleep(10000);
-            /*string[] files = Directory.GetFiles(mainEntity.DirectoryName + "\\dist");
+            string[] files = Directory.GetFiles(mainEntity.DirectoryName + "\\dist");
             foreach (string file in files)
             {
                 if (!file.Contains("sign") && !file.Contains("temp"))
@@ -101,8 +101,8 @@ namespace MotifyPackage.control
                     }
                     catch { }
                 }
-            }*/
-            System.Environment.Exit(0);
+            }
+            //System.Environment.Exit(0);
         }
 
         public void ModifyPackageNameEnd()
