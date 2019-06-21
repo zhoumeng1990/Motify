@@ -15,8 +15,8 @@ namespace MotifyPackage
     public partial class Main : Form
     {
 
-        private MainControl mainControl;
-        private MainEntity mainEntity;
+        private readonly MainControl mainControl;
+        private readonly MainEntity mainEntity;
         public Main()
         {
             InitializeComponent();
@@ -57,7 +57,7 @@ namespace MotifyPackage
                 mainEntity.ApkPath = tb_file_path.Text;
                 mainEntity.AppName = tb_app_name.Text;
                 mainEntity.IconPath = tb_icon_path.Text;
-                mainEntity.LoadingPaht = tb_loading_path.Text;
+                mainEntity.LoadingPath = tb_loading_path.Text;
                 mainEntity.PackageName = tb_package_name.Text;
                 mainEntity.SignerPath = tb_signer_path.Text;
                 mainEntity.SignerPassword = tb_signer_password.Text;

@@ -46,5 +46,29 @@ namespace MotifyPackage.utils
                 sw.Close();
             }
         }
+
+        public void ModifyLoading(string directoryPath,string loadingPath)
+        {
+            if (Directory.Exists(directoryPath + "\\res\\drawable"))
+            {
+                string filePath = directoryPath + "\\res\\drawable\\" + Path.GetFileName(loadingPath);
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+
+                //未做xml格式的判断
+                filePath= filePath.Substring(0, filePath.Length - 4) +( Path.GetExtension(filePath).Equals(".jpg")|| Path.GetExtension(filePath).Equals(".jpeg") ? ".png" : ".jpg");
+
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+
+                filePath = directoryPath + "\\res\\drawable\\" + Path.GetFileNameWithoutExtension(filePath) + Path.GetExtension(loadingPath);
+
+                File.Move(loadingPath, filePath);
+            }
+        }
     }
 }

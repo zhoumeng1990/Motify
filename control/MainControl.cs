@@ -53,6 +53,7 @@ namespace MotifyPackage.control
             processUtil.ExecuteDecodeCMD(mainEntity.ApkPath);
         }
 
+
         public void DosEnd()
         {
             mainEntity.DirectoryName = Path.GetDirectoryName(mainEntity.ApkPath) + "\\" + Path.GetFileNameWithoutExtension(mainEntity.ApkPath);
@@ -107,12 +108,11 @@ namespace MotifyPackage.control
 
         public void ModifyPackageNameEnd()
         {
-            if (mainEntity.ChanneList==null || mainEntity.ChanneList.Count<1)
+            if (!CommonUtil.IsEmpty(mainEntity.LoadingPath))
             {
-                mainEntity.ChanneList.Add("0");
+                fileUtil.ModifyLoading(mainEntity.DirectoryName, mainEntity.LoadingPath);
             }
-            fileUtil.ModifyChannel(mainEntity.DirectoryName, mainEntity.ChanneList[0]);
-            processUtil.ExecuteBuildCMD(mainEntity.ApkPath);
+            MotifyLoadingEnd();
         }
 
         public void ModifyIconEnd()
@@ -127,7 +127,12 @@ namespace MotifyPackage.control
 
         public void MotifyLoadingEnd()
         {
-            throw new NotImplementedException();
+            if (mainEntity.ChanneList == null || mainEntity.ChanneList.Count < 1)
+            {
+                mainEntity.ChanneList.Add("0");
+            }
+            fileUtil.ModifyChannel(mainEntity.DirectoryName, mainEntity.ChanneList[0]);
+            processUtil.ExecuteBuildCMD(mainEntity.ApkPath);
         }
     }
 }

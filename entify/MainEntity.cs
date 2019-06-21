@@ -9,7 +9,7 @@ namespace MotifyPackage.entify
     {
         private string apkPath;
         private string packageName;
-        private string loadingPaht;
+        private string loadingPath;
         private string iconPath;
         private string appName;
         private string directoryName;
@@ -21,7 +21,7 @@ namespace MotifyPackage.entify
 
         public string ApkPath { get => apkPath; set => apkPath = value; }
         public string PackageName { get => packageName; set => packageName = value; }
-        public string LoadingPaht { get => loadingPaht; set => loadingPaht = value; }
+        public string LoadingPath { get => loadingPath; set => loadingPath = value; }
         public string IconPath { get => iconPath; set => iconPath = value; }
         public string AppName { get => appName; set => appName = value; }
         public string DirectoryName { get => directoryName; set => directoryName = value; }
