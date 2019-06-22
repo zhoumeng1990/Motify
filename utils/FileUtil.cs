@@ -67,7 +67,8 @@ namespace MotifyPackage.utils
                         string[] files = Directory.GetFiles(directoryName);
                         foreach (string fileName in files)
                         {
-                            if (Path.GetFileNameWithoutExtension(fileName).Equals(modifyName==null?loadingName: modifyName))
+                            //三目运算转 COALESCE 表达式
+                            if (Path.GetFileNameWithoutExtension(fileName).Equals(modifyName ?? loadingName))
                             {
                                 drawableFilePaths.Add(fileName);
                             }

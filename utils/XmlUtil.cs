@@ -12,7 +12,7 @@ namespace MotifyPackage.utils
     class XmlUtil
     {
         private IXmlCallback xmlCallback;
-        private MainEntity mainEntity;
+        private readonly MainEntity mainEntity;
 
         public XmlUtil(IXmlCallback xmlCallback, MainEntity mainEntity)
         {
