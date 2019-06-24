@@ -47,7 +47,9 @@ namespace MotifyPackage.control
 
         public void GetAliasEnd(string alias)
         {
-            mainEntity.Alias = alias;
+            if (CommonUtil.IsEmpty(mainEntity.Alias)) {
+                mainEntity.Alias = alias;
+            }
             fileUtil = new FileUtil();
             mainEntity.ChanneList = fileUtil.GetChannelList(mainEntity.ChannePath);
             processUtil.ExecuteDecodeCMD(mainEntity.ApkPath);

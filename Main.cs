@@ -61,6 +61,7 @@ namespace MotifyPackage
                 mainEntity.PackageName = tb_package_name.Text;
                 mainEntity.SignerPath = tb_signer_path.Text;
                 mainEntity.SignerPassword = tb_signer_password.Text;
+                mainEntity.Alias = tb_alias.Text;
                 mainEntity.ChannePath = tb_channel.Text;
                 mainControl.ExecuteProcess(mainEntity);
             }

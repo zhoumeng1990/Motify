@@ -142,7 +142,7 @@ namespace MotifyPackage.utils
             fileInfo.MoveTo(directorySigner + ".apk");
             process.OutputDataReceived += new DataReceivedEventHandler(OnDataReceived);
             string outputSignerName = directorySigner +"_signer.apk";
-            string cmdStr = "jarsigner -verbose -keystore " + mainEntity.SignerPath + " -signedjar " + outputSignerName + " "+ directorySigner +".apk zero";
+            string cmdStr = "jarsigner -verbose -keystore " + mainEntity.SignerPath + " -signedjar " + outputSignerName + " "+ directorySigner +".apk " + mainEntity.Alias;
             process.StandardInput.WriteLine(cmdStr);
             process.StandardInput.WriteLine(mainEntity.SignerPassword);
             process.StandardInput.WriteLine("exit");
