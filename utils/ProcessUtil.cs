@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MotifyPackage.utils
@@ -33,6 +34,7 @@ namespace MotifyPackage.utils
                 MessageBox.Show("请输入签名文件密码");
                 return;
             }
+
             Process process = new Process();  //创建进程对象
             InitProcess(process);
             process.StandardInput.WriteLine("keytool -list  -v -keystore " + mainEntity.SignerPath + " -storepass " + mainEntity.SignerPassword);
@@ -94,19 +96,22 @@ namespace MotifyPackage.utils
 
         public void ExecuteDecodeCMD(string fileName)
         {
+            Task.Factory.StartNew(() =>
+            {
 
-            Process process = new Process();  //创建进程对象
-            InitProcess(process);
+                Process process = new Process();  //创建进程对象
+                InitProcess(process);
 
-            //输入dos命令
-            process.StandardInput.WriteLine("cd {0}", Path.GetDirectoryName(fileName));
-            process.StandardInput.WriteLine("apktool d {0}", fileName);
-            process.StandardInput.WriteLine("exit");
+                //输入dos命令
+                process.StandardInput.WriteLine("cd {0}", Path.GetDirectoryName(fileName));
+                process.StandardInput.WriteLine("apktool d {0}", fileName);
+                process.StandardInput.WriteLine("exit");
 
-            process.WaitForExit();  //等待命令结束
-            process.Close();  //进程结束
+                process.WaitForExit();  //等待命令结束
+                process.Close();  //进程结束
 
-            iProcess.DosEnd();
+                iProcess.DosEnd();
+            });
         }
 
         public void ExecuteBuildCMD(string fileName)

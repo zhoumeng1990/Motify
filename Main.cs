@@ -1,6 +1,8 @@
 ﻿using MotifyPackage.control;
 using MotifyPackage.entify;
 using MotifyPackage.events;
+using MotifyPackage.interfaces;
+using MotifyPackage.utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +14,7 @@ using System.Windows.Forms;
 
 namespace MotifyPackage
 {
-    public partial class Main : Form
+    public partial class Main : Form, IMain
     {
 
         private readonly MainControl mainControl;
@@ -20,7 +22,7 @@ namespace MotifyPackage
         public Main()
         {
             InitializeComponent();
-            mainControl = new MainControl();
+            mainControl = new MainControl(this);
             mainEntity = new MainEntity();
             SetDragEvent(tb_file_path,tb_loading_path,tb_icon_path,tb_signer_path,tb_channel);
         }
@@ -91,5 +93,39 @@ namespace MotifyPackage
         {
 
         }
+
+        public void AliasValue(string value)
+        {
+            if (CommonUtil.IsEmpty(mainEntity.Alias))
+            {
+                mainEntity.Alias = value;
+            }
+
+            if (InvokeRequired)
+            {
+                Invoke(new ProcessChange(SetAlias));
+            }
+            else
+            {
+                tb_alias.Text = mainEntity.Alias;
+            }
+        }
+
+        private void SetAlias()
+        {
+            tb_alias.Text = mainEntity.Alias;
+        }
+
+        public void ProcessEnd()
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new ProcessChange(ProcessEnd));
+                return;
+            }
+            this.Controls.Clear();
+            this.InitializeComponent();
+        }
+        private delegate void ProcessChange();
     }
 }

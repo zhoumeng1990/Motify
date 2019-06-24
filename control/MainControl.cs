@@ -12,13 +12,20 @@ using System.Xml;
 
 namespace MotifyPackage.control
 {
-    class MainControl : IFile, IProcess, IXmlCallback
+    class MainControl : IProcess, IXmlCallback
     {
 
         private MainEntity mainEntity;
         private XmlUtil xmlUtil;
         private ProcessUtil processUtil;
         private FileUtil fileUtil;
+
+        private IMain iMain;
+
+        public MainControl(IMain iMain)
+        {
+            this.iMain = iMain;
+        }
 
         /**
          * 反编译
@@ -47,9 +54,7 @@ namespace MotifyPackage.control
 
         public void GetAliasEnd(string alias)
         {
-            if (CommonUtil.IsEmpty(mainEntity.Alias)) {
-                mainEntity.Alias = alias;
-            }
+            iMain.AliasValue(alias??"");
             fileUtil = new FileUtil();
             mainEntity.ChanneList = fileUtil.GetChannelList(mainEntity.ChannePath);
             processUtil.ExecuteDecodeCMD(mainEntity.ApkPath);
@@ -96,7 +101,7 @@ namespace MotifyPackage.control
             string[] files = Directory.GetFiles(mainEntity.DirectoryName + "\\dist");
             foreach (string file in files)
             {
-                if (!file.Contains("sign") && !file.Contains("temp"))
+                if (!Path.GetFileNameWithoutExtension(file).EndsWith("signer") && !file.Contains("temp"))
                 {
                     try
                     {
@@ -106,6 +111,7 @@ namespace MotifyPackage.control
                 }
             }
             //System.Environment.Exit(0);
+            //Console.ReadLine();
         }
 
         public void ModifyPackageNameEnd()
