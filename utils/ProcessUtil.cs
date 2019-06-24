@@ -3,6 +3,7 @@ using MotifyPackage.entify;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -92,9 +93,8 @@ namespace MotifyPackage.utils
 
         public void ExecuteDecodeCMD(string fileName)
         {
-            Task.Factory.StartNew(() =>
+            ThreadPool.QueueUserWorkItem(h =>
             {
-
                 Process process = new Process();  //创建进程对象
                 InitProcess(process);
 
