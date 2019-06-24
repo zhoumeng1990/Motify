@@ -4,12 +4,6 @@ using MotifyPackage.events;
 using MotifyPackage.interfaces;
 using MotifyPackage.utils;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace MotifyPackage
@@ -101,31 +95,12 @@ namespace MotifyPackage
                 mainEntity.Alias = value;
             }
 
-            if (InvokeRequired)
-            {
-                Invoke(new ProcessChange(SetAlias));
-            }
-            else
-            {
-                tb_alias.Text = mainEntity.Alias;
-            }
-        }
-
-        private void SetAlias()
-        {
             tb_alias.Text = mainEntity.Alias;
         }
 
         public void ProcessEnd()
         {
-            if (InvokeRequired)
-            {
-                Invoke(new ProcessChange(ProcessEnd));
-                return;
-            }
-            this.Controls.Clear();
-            this.InitializeComponent();
+            
         }
-        private delegate void ProcessChange();
     }
 }
