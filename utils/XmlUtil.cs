@@ -8,7 +8,7 @@ namespace MotifyPackage.utils
 {
     class XmlUtil
     {
-        private IXmlCallback xmlCallback;
+        private readonly IXmlCallback xmlCallback;
         private readonly MainEntity mainEntity;
 
         public XmlUtil(IXmlCallback xmlCallback, MainEntity mainEntity)

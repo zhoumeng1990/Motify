@@ -15,8 +15,7 @@ namespace MotifyPackage.control
         private XmlUtil xmlUtil;
         private ProcessUtil processUtil;
         private FileUtil fileUtil;
-
-        private IMain iMain;
+        private readonly IMain iMain;
 
         public MainControl(IMain iMain)
         {
@@ -55,7 +54,6 @@ namespace MotifyPackage.control
             mainEntity.ChanneList = fileUtil.GetChannelList(mainEntity.ChannePath);
             processUtil.ExecuteDecodeCMD(mainEntity.ApkPath);
         }
-
 
         public void DosEnd()
         {
