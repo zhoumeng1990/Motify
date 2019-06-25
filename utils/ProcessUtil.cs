@@ -98,9 +98,13 @@ namespace MotifyPackage.utils
                 InitProcess(process);
 
                 //输入dos命令
+                process.StandardInput.WriteLine(Path.GetPathRoot(fileName).Substring(0,2));
                 process.StandardInput.WriteLine("cd {0}", Path.GetDirectoryName(fileName));
-                process.StandardInput.WriteLine("apktool d {0}", fileName);
+                process.StandardInput.WriteLine("{0} d {1}", "D:\\zero\\apktool\\apktool.bat", fileName);
                 process.StandardInput.WriteLine("exit");
+
+                string strRst = process.StandardOutput.ReadToEnd(); //获取结果 
+                Console.WriteLine("已执行了：{0}", strRst);
 
                 process.WaitForExit();  //等待命令结束
                 process.Close();  //进程结束
@@ -115,8 +119,9 @@ namespace MotifyPackage.utils
             InitProcess(process);
 
             //输入dos命令
+            process.StandardInput.WriteLine(Path.GetPathRoot(fileName).Substring(0, 2));
             process.StandardInput.WriteLine("cd {0}", Path.GetDirectoryName(fileName));
-            process.StandardInput.WriteLine("apktool b {0}", Path.GetFileNameWithoutExtension(fileName));
+            process.StandardInput.WriteLine("{0} b {1}", "D:\\zero\\apktool\\apktool.bat", Path.GetFileNameWithoutExtension(fileName));
             process.StandardInput.WriteLine("exit");
 
             string strRst = process.StandardOutput.ReadToEnd(); //获取结果 
