@@ -87,7 +87,7 @@ namespace MotifyPackage.utils
             }
 
             doc.Save(manifestPath);
-            xmlCallback.ModifyPackageNameEnd();
+            xmlCallback.ModifyManifestEnd();
         }
     }
 }

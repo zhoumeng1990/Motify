@@ -33,25 +33,24 @@ namespace MotifyPackage
             }
         }
 
-
         private void Btn_one_key_Click(object sender, EventArgs e)
         {
             if (CommonUtil.IsEmpty(tb_file_path.Text))
             {
                 MessageBox.Show("APK文件路径不能为空");
             }
-            else if (CommonUtil.IsEmpty(tb_apktool.Text))
+            /*else if (CommonUtil.IsEmpty(tb_apktool.Text))
             {
                 MessageBox.Show("apktool路径不能为空");
-            }
-            else if (!File.Exists(tb_file_path.Text))
+            }*/
+            else if (!(File.Exists(tb_file_path.Text)||Directory.Exists(tb_file_path.Text)))
             {
                 MessageBox.Show("APK文件路径错误");
             }
-            else if (!Path.GetExtension(tb_file_path.Text).Equals(".apk"))
+            /*else if (!Path.GetExtension(tb_file_path.Text).Equals(".apk"))
             {
                 MessageBox.Show("非APK文件");
-            }
+            }*/
             else
             {
                 mainEntity.ApkPath = tb_file_path.Text;

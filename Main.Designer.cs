@@ -57,9 +57,9 @@
             this.label_select.AutoSize = true;
             this.label_select.Location = new System.Drawing.Point(89, 21);
             this.label_select.Name = "label_select";
-            this.label_select.Size = new System.Drawing.Size(71, 12);
+            this.label_select.Size = new System.Drawing.Size(77, 12);
             this.label_select.TabIndex = 0;
-            this.label_select.Text = "选择apk文件";
+            this.label_select.Text = "选择执行路径";
             // 
             // tb_file_path
             // 
@@ -112,9 +112,9 @@
             this.label_icon_path.AutoSize = true;
             this.label_icon_path.Location = new System.Drawing.Point(91, 140);
             this.label_icon_path.Name = "label_icon_path";
-            this.label_icon_path.Size = new System.Drawing.Size(53, 12);
+            this.label_icon_path.Size = new System.Drawing.Size(59, 12);
             this.label_icon_path.TabIndex = 6;
-            this.label_icon_path.Text = "icon路径";
+            this.label_icon_path.Text = "icon 路径";
             // 
             // tb_app_name
             // 

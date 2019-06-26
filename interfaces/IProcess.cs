@@ -10,7 +10,7 @@ namespace MotifyPackage.control
         //获取别名结束
         void GetAliasEnd(string alias);
         //反编译结束
-        void DosEnd();
+        void DecodeEnd();
         //打包结束
         void BuildEnd();
         //签名完成的回调

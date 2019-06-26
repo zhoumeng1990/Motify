@@ -117,7 +117,7 @@ namespace MotifyPackage.utils
                 process.WaitForExit();  //等待命令结束
                 process.Close();  //进程结束
 
-                iProcess.DosEnd();
+                iProcess.DecodeEnd();
             });
         }
 
@@ -146,7 +146,7 @@ namespace MotifyPackage.utils
         {
             if (CommonUtil.IsEmpty(mainEntity.SignerPath)|| CommonUtil.IsEmpty(mainEntity.SignerPassword))
             {
-                MessageBox.Show("反编译结束");
+                MessageBox.Show("执行结束");
                 return;
             }
             Process process = new Process();  //创建进程对象

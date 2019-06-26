@@ -2,7 +2,7 @@
 {
     interface IXmlCallback
     {
-        void ModifyPackageNameEnd();
+        void ModifyManifestEnd();
         void ModifyIcon(string iconName);
         void ModifyAppNameEnd();
     }
