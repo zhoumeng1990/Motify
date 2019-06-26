@@ -1,17 +1,16 @@
-﻿using MotifyPackage.control;
-using MotifyPackage.entify;
-using MotifyPackage.events;
-using MotifyPackage.interfaces;
-using MotifyPackage.utils;
+﻿using ModifyPackage.control;
+using ModifyPackage.entify;
+using ModifyPackage.events;
+using ModifyPackage.interfaces;
+using ModifyPackage.utils;
 using System;
 using System.IO;
 using System.Windows.Forms;
 
-namespace MotifyPackage
+namespace ModifyPackage
 {
     public partial class Main : Form, IMain
     {
-
         private readonly MainControl mainControl;
         private readonly MainEntity mainEntity;
         public Main()
@@ -37,15 +36,15 @@ namespace MotifyPackage
         {
             if (CommonUtil.IsEmpty(tb_file_path.Text))
             {
-                MessageBox.Show("APK文件路径不能为空");
+                MessageBox.Show("文件执行路径不能为空");
             }
             /*else if (CommonUtil.IsEmpty(tb_apktool.Text))
             {
                 MessageBox.Show("apktool路径不能为空");
             }*/
-            else if (!(File.Exists(tb_file_path.Text)||Directory.Exists(tb_file_path.Text)))
+            else if (!(File.Exists(tb_file_path.Text) || Directory.Exists(tb_file_path.Text)))
             {
-                MessageBox.Show("APK文件路径错误");
+                MessageBox.Show("文件执行路径错误");
             }
             /*else if (!Path.GetExtension(tb_file_path.Text).Equals(".apk"))
             {

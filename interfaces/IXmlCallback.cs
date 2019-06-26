@@ -1,4 +1,4 @@
-﻿namespace MotifyPackage.interfaces
+﻿namespace ModifyPackage.interfaces
 {
     interface IXmlCallback
     {

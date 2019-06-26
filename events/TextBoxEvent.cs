@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace MotifyPackage.events
+namespace ModifyPackage.events
 {
     class TextBoxEvent
     {

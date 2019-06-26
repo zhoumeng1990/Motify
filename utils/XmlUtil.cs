@@ -1,10 +1,10 @@
-﻿using MotifyPackage.entify;
-using MotifyPackage.interfaces;
+﻿using ModifyPackage.entify;
+using ModifyPackage.interfaces;
 using System;
 using System.IO;
 using System.Xml;
 
-namespace MotifyPackage.utils
+namespace ModifyPackage.utils
 {
     class XmlUtil
     {

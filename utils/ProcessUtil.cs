@@ -1,12 +1,12 @@
-﻿using MotifyPackage.control;
-using MotifyPackage.entify;
+﻿using ModifyPackage.control;
+using ModifyPackage.entify;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace MotifyPackage.utils
+namespace ModifyPackage.utils
 {
     class ProcessUtil
     {

@@ -1,13 +1,13 @@
-﻿using MotifyPackage.entify;
-using MotifyPackage.interfaces;
-using MotifyPackage.utils;
+﻿using ModifyPackage.entify;
+using ModifyPackage.interfaces;
+using ModifyPackage.utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace MotifyPackage.control
+namespace ModifyPackage.control
 {
     class MainControl : IProcess, IXmlCallback
     {

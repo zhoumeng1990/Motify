@@ -1,4 +1,4 @@
-﻿namespace MotifyPackage
+﻿namespace ModifyPackage
 {
     partial class Main
     {
