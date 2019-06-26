@@ -18,6 +18,7 @@ namespace MotifyPackage.entify
         private string alias;
         private string channePath;
         private List<string> channeList;
+        private string apktoolPath;
 
         public string ApkPath { get => apkPath; set => apkPath = value; }
         public string PackageName { get => packageName; set => packageName = value; }
@@ -30,5 +31,6 @@ namespace MotifyPackage.entify
         public string Alias { get => alias; set => alias = value; }
         public string ChannePath { get => channePath; set => channePath = value; }
         public List<string> ChanneList { get => channeList; set => channeList = value; }
+        public string ApktoolPath { get => apktoolPath; set => apktoolPath = value; }
     }
 }

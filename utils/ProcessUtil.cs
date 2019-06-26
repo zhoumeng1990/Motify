@@ -11,13 +11,19 @@ namespace MotifyPackage.utils
     class ProcessUtil
     {
         private readonly IProcess iProcess;
+        private MainEntity mainEntity;
         public ProcessUtil(IProcess iProcess)
         {
             this.iProcess = iProcess;
         }
 
+        public void SetMainEntity(MainEntity mainEntity)
+        {
+            this.mainEntity = mainEntity;
+        }
+
         //获取别名
-        public void GetAlisa(MainEntity mainEntity)
+        public void GetAlisa()
         {
             if (CommonUtil.IsEmpty(mainEntity.SignerPath))
             {
@@ -90,8 +96,9 @@ namespace MotifyPackage.utils
             process.Start();  //进程开始
         }
 
-        public void ExecuteDecodeCMD(string fileName)
+        public void ExecuteDecodeCMD()
         {
+            string fileName = mainEntity.ApkPath;
             ThreadPool.QueueUserWorkItem(h =>
             {
                 Process process = new Process();  //创建进程对象
@@ -100,11 +107,12 @@ namespace MotifyPackage.utils
                 //输入dos命令
                 process.StandardInput.WriteLine(Path.GetPathRoot(fileName).Substring(0,2));
                 process.StandardInput.WriteLine("cd {0}", Path.GetDirectoryName(fileName));
-                process.StandardInput.WriteLine("{0} d {1}", "D:\\zero\\apktool\\apktool.bat", fileName);
+                process.StandardInput.WriteLine("{0} d {1}", mainEntity.ApktoolPath, fileName);
                 process.StandardInput.WriteLine("exit");
 
                 string strRst = process.StandardOutput.ReadToEnd(); //获取结果 
                 Console.WriteLine("已执行了：{0}", strRst);
+                //MessageBox.Show(strRst);
 
                 process.WaitForExit();  //等待命令结束
                 process.Close();  //进程结束
@@ -113,15 +121,16 @@ namespace MotifyPackage.utils
             });
         }
 
-        public void ExecuteBuildCMD(string fileName)
+        public void ExecuteBuildCMD()
         {
+            string fileName = mainEntity.ApkPath;
             Process process = new Process();  //创建进程对象
             InitProcess(process);
 
             //输入dos命令
             process.StandardInput.WriteLine(Path.GetPathRoot(fileName).Substring(0, 2));
             process.StandardInput.WriteLine("cd {0}", Path.GetDirectoryName(fileName));
-            process.StandardInput.WriteLine("{0} b {1}", "D:\\zero\\apktool\\apktool.bat", Path.GetFileNameWithoutExtension(fileName));
+            process.StandardInput.WriteLine("{0} b {1}", mainEntity.ApktoolPath, Path.GetFileNameWithoutExtension(fileName));
             process.StandardInput.WriteLine("exit");
 
             string strRst = process.StandardOutput.ReadToEnd(); //获取结果 
@@ -133,8 +142,13 @@ namespace MotifyPackage.utils
             iProcess.BuildEnd();
         }
 
-        public void ExecuteSignerCMD(MainEntity mainEntity)
+        public void ExecuteSignerCMD()
         {
+            if (CommonUtil.IsEmpty(mainEntity.SignerPath)|| CommonUtil.IsEmpty(mainEntity.SignerPassword))
+            {
+                MessageBox.Show("反编译结束");
+                return;
+            }
             Process process = new Process();  //创建进程对象
             InitProcess(process);
             // 改名方法

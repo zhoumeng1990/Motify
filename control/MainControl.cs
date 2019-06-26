@@ -2,6 +2,7 @@
 using MotifyPackage.interfaces;
 using MotifyPackage.utils;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
@@ -10,7 +11,6 @@ namespace MotifyPackage.control
 {
     class MainControl : IProcess, IXmlCallback
     {
-
         private MainEntity mainEntity;
         private XmlUtil xmlUtil;
         private ProcessUtil processUtil;
@@ -28,31 +28,32 @@ namespace MotifyPackage.control
         public void ExecuteProcess(MainEntity mainEntity)
         {
             this.mainEntity = mainEntity;
-            if (File.Exists(mainEntity.ApkPath))
+            processUtil = new ProcessUtil(this);
+            processUtil.SetMainEntity(mainEntity);
+
+            if (CommonUtil.IsEmpty(mainEntity.SignerPath))
             {
-                if (Path.GetExtension(mainEntity.ApkPath).Equals(".apk"))
-                {
-                    processUtil = new ProcessUtil(this);
-                    //processUtil.ExecuteDecodeCMD(pathName);
-                    processUtil.GetAlisa(mainEntity);
-                }
-                else
-                {
-                    MessageBox.Show("文件错误");
-                }
+                GetAliasEnd(null);
             }
             else
             {
-                MessageBox.Show("路径错误");
+                if (CommonUtil.IsEmpty(mainEntity.SignerPassword))
+                {
+                    MessageBox.Show("签名文件密码为空");
+                }
+                else
+                {
+                    processUtil.GetAlisa();
+                }
             }
         }
 
         public void GetAliasEnd(string alias)
         {
-            iMain.AliasValue(alias??"");
+            iMain.AliasValue(alias ?? "");
             fileUtil = new FileUtil();
             mainEntity.ChanneList = fileUtil.GetChannelList(mainEntity.ChannePath);
-            processUtil.ExecuteDecodeCMD(mainEntity.ApkPath);
+            processUtil.ExecuteDecodeCMD();
         }
 
         public void DosEnd()
@@ -64,22 +65,18 @@ namespace MotifyPackage.control
 
         public void BuildEnd()
         {
-            processUtil.ExecuteSignerCMD(mainEntity);
+            processUtil.ExecuteSignerCMD();
         }
 
         public void SignerEnd()
         {
-            if (mainEntity.ChanneList == null || mainEntity.ChanneList.Count < 1)
-            {
-                return;
-            }
-            else
+            if (mainEntity.ChanneList != null && mainEntity.ChanneList.Count > 0)
             {
                 mainEntity.ChanneList.RemoveAt(0);
                 if (mainEntity.ChanneList.Count > 0)
                 {
                     fileUtil.ModifyChannel(mainEntity.DirectoryName, mainEntity.ChanneList[0]);
-                    processUtil.ExecuteBuildCMD(mainEntity.ApkPath);
+                    processUtil.ExecuteBuildCMD();
                 }
                 else
                 {
@@ -119,7 +116,7 @@ namespace MotifyPackage.control
 
         public void ModifyIcon(string iconName)
         {
-            fileUtil.ModifyLoading(mainEntity.DirectoryName, mainEntity.IconPath,iconName);
+            fileUtil.ModifyLoading(mainEntity.DirectoryName, mainEntity.IconPath, iconName);
         }
 
         public void ModifyAppNameEnd()
@@ -129,12 +126,18 @@ namespace MotifyPackage.control
 
         public void MotifyLoadingEnd()
         {
-            if (mainEntity.ChanneList == null || mainEntity.ChanneList.Count < 1)
+            if (!CommonUtil.IsEmpty(mainEntity.ChannePath))
             {
-                mainEntity.ChanneList.Add("0");
+                if (mainEntity.ChanneList == null || mainEntity.ChanneList.Count < 1)
+                {
+                    mainEntity.ChanneList = new List<string>
+                {
+                    "0"
+                };
+                }
+                fileUtil.ModifyChannel(mainEntity.DirectoryName, mainEntity.ChanneList[0]);
             }
-            fileUtil.ModifyChannel(mainEntity.DirectoryName, mainEntity.ChanneList[0]);
-            processUtil.ExecuteBuildCMD(mainEntity.ApkPath);
+            processUtil.ExecuteBuildCMD();
         }
     }
 }

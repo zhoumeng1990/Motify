@@ -4,6 +4,7 @@ using MotifyPackage.events;
 using MotifyPackage.interfaces;
 using MotifyPackage.utils;
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace MotifyPackage
@@ -18,12 +19,12 @@ namespace MotifyPackage
             InitializeComponent();
             mainControl = new MainControl(this);
             mainEntity = new MainEntity();
-            SetDragEvent(tb_file_path,tb_loading_path,tb_icon_path,tb_signer_path,tb_channel);
+            SetDragEvent(tb_file_path, tb_loading_path, tb_icon_path, tb_signer_path, tb_channel, tb_apktool);
         }
 
         private void SetDragEvent(params TextBox[] tbs)
         {
-            foreach(TextBox textBox in tbs)
+            foreach (TextBox textBox in tbs)
             {
                 textBox.AllowDrop = true;
                 TextBoxEvent textBoxEvent = new TextBoxEvent(textBox);
@@ -32,21 +33,24 @@ namespace MotifyPackage
             }
         }
 
-        private void Label_select_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Label1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void Btn_one_key_Click(object sender, EventArgs e)
         {
-            if(tb_file_path.Text==null|| tb_file_path.Text.Equals(""))
+            if (CommonUtil.IsEmpty(tb_file_path.Text))
             {
-                Console.WriteLine("请选择路径");
+                MessageBox.Show("APK文件路径不能为空");
+            }
+            else if (CommonUtil.IsEmpty(tb_apktool.Text))
+            {
+                MessageBox.Show("apktool路径不能为空");
+            }
+            else if (!File.Exists(tb_file_path.Text))
+            {
+                MessageBox.Show("APK文件路径错误");
+            }
+            else if (!Path.GetExtension(tb_file_path.Text).Equals(".apk"))
+            {
+                MessageBox.Show("非APK文件");
             }
             else
             {
@@ -59,33 +63,9 @@ namespace MotifyPackage
                 mainEntity.SignerPassword = tb_signer_password.Text;
                 mainEntity.Alias = tb_alias.Text;
                 mainEntity.ChannePath = tb_channel.Text;
+                mainEntity.ApktoolPath = tb_apktool.Text;
                 mainControl.ExecuteProcess(mainEntity);
             }
-        }
-
-        private void Tb_file_path_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Label1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Tb_package_name_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Tb_signer_path_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Tb_channel_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         public void AliasValue(string value)
@@ -100,7 +80,7 @@ namespace MotifyPackage
 
         public void ProcessEnd()
         {
-            
+
         }
     }
 }
