@@ -52,16 +52,29 @@ namespace ModifyPackage.control
         {
             iMain.AliasValue(alias ?? "");
             fileUtil = new FileUtil();
-            if (!CommonUtil.IsEmpty(mainEntity.ChannePath))
-            {
-                mainEntity.ChanneList = fileUtil.GetChannelList(mainEntity.ChannePath);
-            }
+            GetChannelList();
             if (CommonUtil.IsEmpty(mainEntity.ApktoolPath))
             {
                 DecodeEnd();
             }
             else
             {
+                if (Directory.Exists(mainEntity.ApkPath))
+                {
+                    string[] apkPathFiles = Directory.GetFiles(mainEntity.ApkPath);
+                    mainEntity.ApkPathList = new List<string>();
+                    foreach (var apkPathFile in apkPathFiles)
+                    {
+                        if (File.Exists(apkPathFile)&& Path.GetExtension(apkPathFile).Equals(".apk"))
+                        {
+                            mainEntity.ApkPathList.Add(apkPathFile);
+                        }
+                    }
+                    if (mainEntity.ApkPathList.Count > 0)
+                    {
+                        mainEntity.ApkPath = mainEntity.ApkPathList[0];
+                    }
+                }
                 processUtil.ExecuteDecodeCMD();
             }
         }
@@ -94,11 +107,45 @@ namespace ModifyPackage.control
                     thread.Start();
                 }
             }
+
+            else
+            {
+                GoOnDecode();
+            }
+        }
+
+        private void GoOnDecode()
+        {
+            if (mainEntity.ApkPathList != null && mainEntity.ApkPathList.Count > 0)
+            {
+                mainEntity.ApkPathList.RemoveAt(0);
+                if (mainEntity.ApkPathList.Count > 0)
+                {
+                    GetChannelList();
+                    mainEntity.ApkPath = mainEntity.ApkPathList[0];
+                    processUtil.ExecuteDecodeCMD();
+                }
+            }
+        }
+
+        private void GetChannelList()
+        {
+            if (!CommonUtil.IsEmpty(mainEntity.ChannePath))
+            {
+                mainEntity.ChanneList = fileUtil.GetChannelList(mainEntity.ChannePath);
+            }
+            else
+            {
+                mainEntity.ChanneList = new List<string>
+                {
+                    "0"
+                };
+            }
         }
 
         private void ExecuteThread()
         {
-            Thread.Sleep(10000);
+            Thread.Sleep(5000);
             string[] files = Directory.GetFiles(mainEntity.DirectoryName + "\\dist");
             foreach (string file in files)
             {
@@ -111,8 +158,10 @@ namespace ModifyPackage.control
                     catch { }
                 }
             }
+            GoOnDecode();
             //System.Environment.Exit(0);
             //Console.ReadLine();
+
         }
 
         public void ModifyManifestEnd()

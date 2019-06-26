@@ -19,6 +19,7 @@ namespace ModifyPackage.entify
         private string channePath;
         private List<string> channeList;
         private string apktoolPath;
+        private List<string> apkPathList;
 
         public string ApkPath { get => apkPath; set => apkPath = value; }
         public string PackageName { get => packageName; set => packageName = value; }
@@ -32,5 +33,6 @@ namespace ModifyPackage.entify
         public string ChannePath { get => channePath; set => channePath = value; }
         public List<string> ChanneList { get => channeList; set => channeList = value; }
         public string ApktoolPath { get => apktoolPath; set => apktoolPath = value; }
+        public List<string> ApkPathList { get => apkPathList; set => apkPathList = value; }
     }
 }
