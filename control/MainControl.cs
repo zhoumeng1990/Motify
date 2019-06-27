@@ -88,7 +88,14 @@ namespace ModifyPackage.control
 
         public void BuildEnd()
         {
-            processUtil.ExecuteSignerCMD();
+            if (fileUtil.Enciphered(mainEntity.DirectoryName))
+            {
+                GoOnDecode();
+            }
+            else
+            {
+                processUtil.ExecuteSignerCMD();
+            }
         }
 
         public void SignerEnd()

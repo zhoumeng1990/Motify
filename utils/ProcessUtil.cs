@@ -158,6 +158,14 @@ namespace ModifyPackage.utils
             {
                 File.Delete(directorySigner + ".apk");
             }
+
+            if (!Directory.Exists(mainEntity.DirectoryName + "\\dist"))
+            {
+                mainEntity.ChanneList.Clear();
+                iProcess.SignerEnd();
+                return;
+            }
+
             fileInfo.MoveTo(directorySigner + ".apk");
             process.OutputDataReceived += new DataReceivedEventHandler(OnDataReceived);
             string outputSignerName = directorySigner +"_signer.apk";
