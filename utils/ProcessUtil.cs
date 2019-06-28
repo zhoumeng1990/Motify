@@ -107,7 +107,7 @@ namespace ModifyPackage.utils
                 //输入dos命令
                 process.StandardInput.WriteLine(Path.GetPathRoot(fileName).Substring(0,2));
                 process.StandardInput.WriteLine("cd {0}", Path.GetDirectoryName(fileName));
-                process.StandardInput.WriteLine("{0} d {1}", mainEntity.ApktoolPath, fileName);
+                process.StandardInput.WriteLine("{0} d {1}", mainEntity.ApktoolPath, fileName.IndexOf(" ") > 0 ? "\"" + fileName + "\"" : fileName);
                 process.StandardInput.WriteLine("exit");
 
                 string strRst = process.StandardOutput.ReadToEnd(); //获取结果 
@@ -127,10 +127,12 @@ namespace ModifyPackage.utils
             Process process = new Process();  //创建进程对象
             InitProcess(process);
 
+            string buildName = Path.GetFileNameWithoutExtension(fileName).IndexOf(" ") > 0 ? "\"" + Path.GetFileNameWithoutExtension(fileName) + "\"" : Path.GetFileNameWithoutExtension(fileName);
+
             //输入dos命令
             process.StandardInput.WriteLine(Path.GetPathRoot(fileName).Substring(0, 2));
             process.StandardInput.WriteLine("cd {0}", Path.GetDirectoryName(fileName));
-            process.StandardInput.WriteLine("{0} b {1}", mainEntity.ApktoolPath, Path.GetFileNameWithoutExtension(fileName));
+            process.StandardInput.WriteLine("{0} b {1}", mainEntity.ApktoolPath, buildName);
             process.StandardInput.WriteLine("exit");
 
             string strRst = process.StandardOutput.ReadToEnd(); //获取结果 
@@ -169,7 +171,9 @@ namespace ModifyPackage.utils
             fileInfo.MoveTo(directorySigner + ".apk");
             process.OutputDataReceived += new DataReceivedEventHandler(OnDataReceived);
             string outputSignerName = directorySigner +"_signer.apk";
-            string cmdStr = "jarsigner -verbose -keystore " + mainEntity.SignerPath + " -signedjar " + outputSignerName + " "+ directorySigner +".apk " + mainEntity.Alias;
+            outputSignerName = outputSignerName.IndexOf(" ") > 0 ? "\"" + outputSignerName + "\"" : outputSignerName;
+            directorySigner = directorySigner.IndexOf(" ") > 0 ? "\"" + directorySigner + ".apk\"" : directorySigner + ".apk";
+            string cmdStr = "jarsigner -verbose -keystore " + mainEntity.SignerPath + " -signedjar " + outputSignerName + " "+ directorySigner + " "+ mainEntity.Alias;
             process.StandardInput.WriteLine(cmdStr);
             process.StandardInput.WriteLine(mainEntity.SignerPassword);
             process.StandardInput.WriteLine("exit");

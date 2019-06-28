@@ -133,6 +133,10 @@ namespace ModifyPackage.control
                     processUtil.ExecuteDecodeCMD();
                 }
             }
+            else
+            {
+                MessageBox.Show("执行完毕");
+            }
         }
 
         private void GetChannelList()
