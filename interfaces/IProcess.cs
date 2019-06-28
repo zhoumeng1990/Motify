@@ -15,5 +15,7 @@ namespace ModifyPackage.control
         void BuildEnd();
         //签名完成的回调
         void SignerEnd();
+        //继续执行反编译
+        void GoOnDecode();
     }
 }

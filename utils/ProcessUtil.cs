@@ -148,7 +148,7 @@ namespace ModifyPackage.utils
         {
             if (CommonUtil.IsEmpty(mainEntity.SignerPath)|| CommonUtil.IsEmpty(mainEntity.SignerPassword))
             {
-                MessageBox.Show("执行结束");
+                iProcess.GoOnDecode();
                 return;
             }
             Process process = new Process();  //创建进程对象

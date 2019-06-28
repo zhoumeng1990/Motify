@@ -121,7 +121,7 @@ namespace ModifyPackage.control
             }
         }
 
-        private void GoOnDecode()
+        public void GoOnDecode()
         {
             if (mainEntity.ApkPathList != null && mainEntity.ApkPathList.Count > 0)
             {
@@ -132,10 +132,10 @@ namespace ModifyPackage.control
                     mainEntity.ApkPath = mainEntity.ApkPathList[0];
                     processUtil.ExecuteDecodeCMD();
                 }
-            }
-            else
-            {
-                MessageBox.Show("执行完毕");
+                else
+                {
+                    MessageBox.Show("执行完毕");
+                }
             }
         }
 
