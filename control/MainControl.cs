@@ -170,9 +170,6 @@ namespace ModifyPackage.control
                 }
             }
             GoOnDecode();
-            //System.Environment.Exit(0);
-            //Console.ReadLine();
-
         }
 
         public void ModifyManifestEnd()
