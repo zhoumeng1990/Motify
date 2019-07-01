@@ -48,6 +48,7 @@ namespace ModifyPackage.control
             }
         }
 
+        //获取别名后的操作
         public void GetAliasEnd(string alias)
         {
             iMain.AliasValue(alias ?? "");
@@ -79,6 +80,7 @@ namespace ModifyPackage.control
             }
         }
 
+        //反编译之后的操作
         public void DecodeEnd()
         {
             mainEntity.DirectoryName = Path.GetDirectoryName(mainEntity.ApkPath) + "\\" + Path.GetFileNameWithoutExtension(mainEntity.ApkPath);
@@ -86,6 +88,7 @@ namespace ModifyPackage.control
             xmlUtil.AnalysisXML(mainEntity.DirectoryName);
         }
 
+        //构建之后的操作
         public void BuildEnd()
         {
             if (fileUtil.Enciphered(mainEntity.DirectoryName))
@@ -98,6 +101,7 @@ namespace ModifyPackage.control
             }
         }
 
+        //签名结束后的操作
         public void SignerEnd()
         {
             if (mainEntity.ChanneList != null && mainEntity.ChanneList.Count > 0)
@@ -121,6 +125,7 @@ namespace ModifyPackage.control
             }
         }
 
+        //继续反编译
         public void GoOnDecode()
         {
             if (mainEntity.ApkPathList != null && mainEntity.ApkPathList.Count > 0)
@@ -139,6 +144,7 @@ namespace ModifyPackage.control
             }
         }
 
+        //获取渠道列表
         private void GetChannelList()
         {
             if (!CommonUtil.IsEmpty(mainEntity.ChannePath))
@@ -172,6 +178,7 @@ namespace ModifyPackage.control
             GoOnDecode();
         }
 
+        //修改manifest之后的操作
         public void ModifyManifestEnd()
         {
             if (!CommonUtil.IsEmpty(mainEntity.LoadingPath))
@@ -181,6 +188,7 @@ namespace ModifyPackage.control
             MotifyLoadingEnd();
         }
 
+        //修改icon之后的操作
         public void ModifyIcon(string iconName)
         {
             fileUtil.ModifyLoading(mainEntity.DirectoryName, mainEntity.IconPath, iconName);
@@ -191,6 +199,7 @@ namespace ModifyPackage.control
             throw new NotImplementedException();
         }
 
+        //修改loading页之后的操作
         public void MotifyLoadingEnd()
         {
             if (!CommonUtil.IsEmpty(mainEntity.ChannePath))

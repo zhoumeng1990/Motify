@@ -29,6 +29,7 @@ namespace ModifyPackage.utils
             return null;
         }
 
+        //修改渠道号
         public void ModifyChannel(string directoryPath,string info)
         {
             if(Directory.Exists(directoryPath + "\\assets"))
@@ -46,6 +47,7 @@ namespace ModifyPackage.utils
             }
         }
 
+        //修改loading页面
         public void ModifyLoading(string directoryPath,string loadingPath)
         {
             ModifyLoading(directoryPath, loadingPath, null);
@@ -159,6 +161,7 @@ namespace ModifyPackage.utils
             return Directory.GetCurrentDirectory();
         }
 
+        //移动apk文件，并创建指定文件夹分类存放
         private void MoveAPK(string filePath,DirectoryInfo directoryInfo, string storeName)
         {
             string sourceFileName = filePath + ".apk";
