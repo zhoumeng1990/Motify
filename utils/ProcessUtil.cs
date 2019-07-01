@@ -81,10 +81,10 @@ namespace ModifyPackage.utils
             iProcess.GetAliasEnd(alias);
         }
 
+        //抽取并初始化进程
         private void InitProcess(Process process)
         {
             process.StartInfo.FileName = "cmd.exe";  //要执行的程序名
-
             process.StartInfo.UseShellExecute = false;  //不使用系统外壳程序启动进程
             process.StartInfo.CreateNoWindow = true;  //不显示dos程序窗口
 
@@ -96,6 +96,7 @@ namespace ModifyPackage.utils
             process.Start();  //进程开始
         }
 
+        //执行反编译
         public void ExecuteDecodeCMD()
         {
             string fileName = mainEntity.ApkPath;
@@ -121,6 +122,7 @@ namespace ModifyPackage.utils
             });
         }
 
+        //构建
         public void ExecuteBuildCMD()
         {
             string fileName = mainEntity.ApkPath;
@@ -144,6 +146,7 @@ namespace ModifyPackage.utils
             iProcess.BuildEnd();
         }
 
+        //签名
         public void ExecuteSignerCMD()
         {
             if (CommonUtil.IsEmpty(mainEntity.SignerPath)|| CommonUtil.IsEmpty(mainEntity.SignerPassword))
@@ -178,16 +181,14 @@ namespace ModifyPackage.utils
             process.StandardInput.WriteLine(mainEntity.SignerPassword);
             process.StandardInput.WriteLine("exit");
             process.BeginOutputReadLine();
-            //string strRst = process.StandardError.ReadToEnd(); //获取结果 
 
             iProcess.SignerEnd();
-            //string strRst = process.StandardOutput.ReadToEnd(); //获取结果 
-            //Console.WriteLine(strRst);
             
             process.WaitForExit();  //等待命令结束
             process.Close();  //进程结束
         }
 
+        //异步打印
         private static void OnDataReceived(object Sender, DataReceivedEventArgs e)
         {
             if (e.Data != null)
