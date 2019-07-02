@@ -19,6 +19,10 @@ namespace ModifyPackage.utils
 
         public void AnalysisXML(string filePath)
         {
+            if (!Directory.Exists(filePath))
+            {
+                return;
+            }
             DirectoryInfo theFolder = new DirectoryInfo(filePath);
             foreach (FileInfo file in theFolder.GetFiles())
             {
