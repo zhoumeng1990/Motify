@@ -9,7 +9,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="signerPassword" Type="System.String" Scope="User">
-      <Value Profile="(Default)">123456</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="signerAlias" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

@@ -4,6 +4,7 @@ using ModifyPackage.events;
 using ModifyPackage.interfaces;
 using ModifyPackage.utils;
 using System;
+using System.Configuration;
 using System.IO;
 using System.Windows.Forms;
 
@@ -19,6 +20,7 @@ namespace ModifyPackage
             mainControl = new MainControl(this);
             mainEntity = new MainEntity();
             SetDragEvent(tb_file_path, tb_loading_path, tb_icon_path, tb_signer_path, tb_channel, tb_apktool);
+            InitDataShow();
         }
 
         private void SetDragEvent(params TextBox[] tbs)
@@ -30,6 +32,19 @@ namespace ModifyPackage
                 textBox.DragEnter += new DragEventHandler(textBoxEvent.TextBox_DragEnter);
                 textBox.DragDrop += new DragEventHandler(textBoxEvent.TextBox_DragDrop);
             }
+        }
+
+        private void InitDataShow()
+        {
+            /*tb_apktool.Text = MotifyPackage.Properties.Settings.Default.apktoolPath;
+            tb_signer_path.Text = MotifyPackage.Properties.Settings.Default.signerPath;
+            tb_signer_password.Text = MotifyPackage.Properties.Settings.Default.signerPassword;
+            tb_alias.Text = MotifyPackage.Properties.Settings.Default.signerAlias;*/
+
+            /*tb_apktool.Text = ConfigurationManager.AppSettings["apktoolPath"];
+            tb_signer_path.Text = ConfigurationManager.AppSettings["signerPath"];
+            tb_signer_password.Text = ConfigurationManager.AppSettings["signerPassword"];
+            tb_alias.Text = ConfigurationManager.AppSettings["signerAlias"];*/
         }
 
         private void Btn_one_key_Click(object sender, EventArgs e)
@@ -62,6 +77,20 @@ namespace ModifyPackage
                 mainEntity.Alias = tb_alias.Text;
                 mainEntity.ChannePath = tb_channel.Text;
                 mainEntity.ApktoolPath = tb_apktool.Text;
+
+                /*Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                configuration.AppSettings.Settings["apktoolPath"].Value = tb_apktool.Text;
+                configuration.AppSettings.Settings["signerPath"].Value = tb_signer_path.Text;
+                configuration.AppSettings.Settings["signerPassword"].Value = tb_signer_password.Text;
+                configuration.AppSettings.Settings["signerAlias"].Value = tb_alias.Text;
+                configuration.Save();
+                MessageBox.Show(ConfigurationManager.AppSettings["apktoolPath"]);*/
+               /* MotifyPackage.Properties.Settings.Default.apktoolPath = tb_apktool.Text;
+                MotifyPackage.Properties.Settings.Default.signerPath = tb_signer_path.Text;
+                MotifyPackage.Properties.Settings.Default.signerPassword = tb_signer_password.Text;
+                MotifyPackage.Properties.Settings.Default.signerAlias = tb_alias.Text;
+                MotifyPackage.Properties.Settings.Default.Save();*/
+
                 mainControl.ExecuteProcess(mainEntity);
             }
         }
