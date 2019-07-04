@@ -34,6 +34,7 @@ namespace ModifyPackage
             }
         }
 
+        //获取配置文件的信息
         private void InitDataShow()
         {
             /*tb_apktool.Text = MotifyPackage.Properties.Settings.Default.apktoolPath;
