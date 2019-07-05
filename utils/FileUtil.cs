@@ -8,31 +8,30 @@ namespace ModifyPackage.utils
 {
     class FileUtil
     {
+        private static StringBuilder stringBuilder;
+
         public List<string> GetChannelList(string filePath)
         {
-            if (File.Exists(filePath))
+            if (File.Exists(filePath) && Path.GetExtension(filePath).Equals(".txt"))
             {
-                if (Path.GetExtension(filePath).Equals(".txt"))
+                StringBuilder stringBuilder = new StringBuilder();
+                using (StreamReader streamReader = new StreamReader(filePath))
                 {
-                    StringBuilder stringBuilder = new StringBuilder();
-                    using(StreamReader streamReader = new StreamReader(filePath))
+                    string line;
+                    while ((line = streamReader.ReadLine()) != null)
                     {
-                        string line;
-                        while((line = streamReader.ReadLine()) != null)
-                        {
-                            stringBuilder.Append(line+",");
-                        }
+                        stringBuilder.Append(line + ",");
                     }
-                    return stringBuilder.ToString().TrimEnd(',').Split(',').ToList<string>();
                 }
+                return stringBuilder.ToString().TrimEnd(',').Split(',').ToList<string>();
             }
             return null;
         }
 
         //修改渠道号
-        public void ModifyChannel(string directoryPath,string info)
+        public void ModifyChannel(string directoryPath, string info)
         {
-            if(Directory.Exists(directoryPath + "\\assets"))
+            if (Directory.Exists(directoryPath + "\\assets"))
             {
                 string fileName = directoryPath + "\\assets\\channel.ini";
                 FileStream fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write);
@@ -48,12 +47,12 @@ namespace ModifyPackage.utils
         }
 
         //修改loading页面
-        public void ModifyLoading(string directoryPath,string loadingPath)
+        public void ModifyLoading(string directoryPath, string loadingPath)
         {
             ModifyLoading(directoryPath, loadingPath, null);
         }
 
-        public void ModifyLoading(string directoryPath, string loadingPath,string modifyName)
+        public void ModifyLoading(string directoryPath, string loadingPath, string modifyName)
         {
 
             if (Directory.Exists(directoryPath + "\\res"))
@@ -76,7 +75,8 @@ namespace ModifyPackage.utils
                         }
                     }
                 }
-                drawableFilePaths.ForEach(drawable => {
+                drawableFilePaths.ForEach(drawable =>
+                {
                     File.Delete(drawable);
                     drawable = Path.GetDirectoryName(drawable) + "\\" + Path.GetFileNameWithoutExtension(drawable) + Path.GetExtension(loadingPath);
                     File.Copy(loadingPath, drawable);
@@ -84,8 +84,6 @@ namespace ModifyPackage.utils
                 });
             }
         }
-
-        private static StringBuilder stringBuilder;
 
         /**
          * 是否加固
@@ -99,58 +97,40 @@ namespace ModifyPackage.utils
                 DirectoryInfo[] directoryInfos = theFolder.GetDirectories();
                 foreach (DirectoryInfo directoryInfo in directoryInfos)
                 {
-                    if (directoryInfo.FullName.EndsWith("smali"))
+                    if (directoryInfo.FullName.EndsWith("smali") && directoryInfo.GetDirectories().Length < 2)
                     {
-                        if (directoryInfo.GetDirectories().Length < 2)
+                        DirectoryInfo[] comDirectoryInfos = directoryInfo.GetDirectories();
+                        foreach (DirectoryInfo comDirectoryInfo in comDirectoryInfos)
                         {
-                            DirectoryInfo[] comDirectoryInfos = directoryInfo.GetDirectories();
-                            foreach (DirectoryInfo comDirectoryInfo in comDirectoryInfos)
+                            if (comDirectoryInfo.Name.Equals("com"))
                             {
-                                if (comDirectoryInfo.Name.Equals("com"))
+                                DirectoryInfo[] smaliDirectoryInfos = comDirectoryInfo.GetDirectories();
+                                if (smaliDirectoryInfos.Length > 0)
                                 {
-                                    DirectoryInfo[] smaliDirectoryInfos = comDirectoryInfo.GetDirectories();
-                                    /*foreach (DirectoryInfo smaliDirectoryInfo in smaliDirectoryInfos)
+                                    if (stringBuilder == null)
                                     {
-                                        if (stringBuilder == null)
-                                        {
-                                            stringBuilder = new StringBuilder();
-                                        }
-                                        if (smaliDirectoryInfo.Name.Equals("tencent"))
-                                        {
-                                            MoveAPK(filePath, directoryInfo, "tencent");
-                                        }
-                                        else if (smaliDirectoryInfo.Name.Equals("qihoo"))
-                                        {
-                                            MoveAPK(filePath, directoryInfo, "qihoo");
-                                        }
-                                    }*/
-                                    if (smaliDirectoryInfos.Length>0)
-                                    {
-                                        if (stringBuilder == null)
-                                        {
-                                            stringBuilder = new StringBuilder();
-                                        }
-                                        MoveAPK(filePath, directoryInfo, smaliDirectoryInfos[0].Name);
+                                        stringBuilder = new StringBuilder();
                                     }
+                                    MoveAPK(filePath, directoryInfo, smaliDirectoryInfos[0].Name);
                                 }
                             }
-                            break;
                         }
+                        break;
                     }
                 }
-                if (stringBuilder != null && stringBuilder.Length > 0)
-                {
-                    string fileName = ParentName(filePath) + "\\已加固.txt";
-                    FileStream fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write);
-                    fileStream.Seek(0, SeekOrigin.Begin);
-                    fileStream.SetLength(0);
-                    fileStream.Close();
+            }
+            if (stringBuilder != null && stringBuilder.Length > 0)
+            {
+                string fileName = ParentName(filePath) + "\\已加固.txt";
+                FileStream fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write);
+                fileStream.Seek(0, SeekOrigin.Begin);
+                fileStream.SetLength(0);
+                fileStream.Close();
 
-                    //true 若要将数据追加到该文件; false 覆盖该文件。 如果指定的文件不存在，该参数无效，且构造函数将创建一个新文件。
-                    StreamWriter sw = new StreamWriter(fileName, false);
-                    sw.WriteLine(stringBuilder);
-                    sw.Close();
-                }
+                //true 若要将数据追加到该文件; false 覆盖该文件。 如果指定的文件不存在，该参数无效，且构造函数将创建一个新文件。
+                StreamWriter sw = new StreamWriter(fileName, false);
+                sw.WriteLine(stringBuilder);
+                sw.Close();
             }
             return isEnciphered;
         }
@@ -162,7 +142,7 @@ namespace ModifyPackage.utils
         }
 
         //移动apk文件，并创建指定文件夹分类存放
-        private void MoveAPK(string filePath,DirectoryInfo directoryInfo, string storeName)
+        private void MoveAPK(string filePath, DirectoryInfo directoryInfo, string storeName)
         {
             string sourceFileName = filePath + ".apk";
             stringBuilder.AppendLine(Path.GetFileNameWithoutExtension(sourceFileName) + " 已 " + storeName + "加固\n\n");
@@ -173,11 +153,11 @@ namespace ModifyPackage.utils
                 Directory.CreateDirectory(path + "\\加固");
             }
 
-            if (!Directory.Exists(path + "\\加固\\"+ storeName))
+            if (!Directory.Exists(path + "\\加固\\" + storeName))
             {
                 Directory.CreateDirectory(path + "\\加固\\" + storeName);
             }
-            File.Move(sourceFileName, path + "\\加固\\" + storeName + "\\" + Path.GetFileName(sourceFileName) + ".apk");
+            File.Copy(sourceFileName, path + "\\加固\\" + storeName + "\\" + Path.GetFileName(sourceFileName), true);
         }
     }
 }
