@@ -157,7 +157,11 @@ namespace ModifyPackage.utils
             {
                 Directory.CreateDirectory(path + "\\加固\\" + storeName);
             }
-            File.Copy(sourceFileName, path + "\\加固\\" + storeName + "\\" + Path.GetFileName(sourceFileName), true);
+            //File.Copy(sourceFileName, path + "\\加固\\" + storeName + "\\" + Path.GetFileName(sourceFileName), true);
+            if (File.Exists(sourceFileName))
+            {
+                File.Move(sourceFileName, path + "\\加固\\" + storeName + "\\" + Path.GetFileName(sourceFileName));
+            }
         }
     }
 }
