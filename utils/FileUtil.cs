@@ -54,7 +54,6 @@ namespace ModifyPackage.utils
 
         public void ModifyLoading(string directoryPath, string loadingPath, string modifyName)
         {
-
             if (Directory.Exists(directoryPath + "\\res"))
             {
                 List<string> drawableFilePaths = new List<string>();
@@ -75,6 +74,7 @@ namespace ModifyPackage.utils
                         }
                     }
                 }
+
                 drawableFilePaths.ForEach(drawable =>
                 {
                     File.Delete(drawable);
@@ -146,7 +146,7 @@ namespace ModifyPackage.utils
         {
             string sourceFileName = filePath + ".apk";
             stringBuilder.AppendLine(Path.GetFileNameWithoutExtension(sourceFileName) + " 已 " + storeName + "加固\n\n");
-            Console.WriteLine("{0}已加固", Path.GetFileName(sourceFileName));
+            //Console.WriteLine("{0}已加固", Path.GetFileName(sourceFileName));
             string path = ParentName(filePath);
             if (!Directory.Exists(path + "\\加固"))
             {

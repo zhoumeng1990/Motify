@@ -25,7 +25,7 @@ namespace ModifyPackage.utils
         //获取别名
         public void GetAlisa()
         {
-            if (CommonUtil.IsEmpty(mainEntity.SignerPath))
+            /*if (CommonUtil.IsEmpty(mainEntity.SignerPath))
             {
                 MessageBox.Show("请输入签名文件");
                 return;
@@ -35,7 +35,7 @@ namespace ModifyPackage.utils
             {
                 MessageBox.Show("请输入签名文件密码");
                 return;
-            }
+            }*/
 
             Process process = new Process();  //创建进程对象
             InitProcess(process);
