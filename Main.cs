@@ -19,7 +19,7 @@ namespace ModifyPackage
             InitializeComponent();
             mainControl = new MainControl(this);
             mainEntity = new MainEntity();
-            SetDragEvent(tb_file_path, tb_loading_path, tb_icon_path, tb_signer_path, tb_channel, tb_apktool);
+            SetDragEvent(tb_file_path, tb_apktool, tb_package_name, tb_loading_path, tb_icon_path, tb_signer_path, tb_channel);
             InitDataShow();
         }
 

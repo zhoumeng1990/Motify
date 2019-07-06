@@ -8,7 +8,10 @@ namespace ModifyPackage.entify
     class MainEntity
     {
         private string apkPath;
+        private List<string> apkPathList;
+        private string apktoolPath;
         private string packageName;
+        private List<string> packageNameList;
         private string loadingPath;
         private string iconPath;
         private string appName;
@@ -18,11 +21,12 @@ namespace ModifyPackage.entify
         private string alias;
         private string channePath;
         private List<string> channeList;
-        private string apktoolPath;
-        private List<string> apkPathList;
 
         public string ApkPath { get => apkPath; set => apkPath = value; }
+        public List<string> ApkPathList { get => apkPathList; set => apkPathList = value; }
+        public string ApktoolPath { get => apktoolPath; set => apktoolPath = value; }
         public string PackageName { get => packageName; set => packageName = value; }
+        public List<string> PackageNameList { get => packageNameList; set => packageNameList = value; }
         public string LoadingPath { get => loadingPath; set => loadingPath = value; }
         public string IconPath { get => iconPath; set => iconPath = value; }
         public string AppName { get => appName; set => appName = value; }
@@ -32,7 +36,5 @@ namespace ModifyPackage.entify
         public string Alias { get => alias; set => alias = value; }
         public string ChannePath { get => channePath; set => channePath = value; }
         public List<string> ChanneList { get => channeList; set => channeList = value; }
-        public string ApktoolPath { get => apktoolPath; set => apktoolPath = value; }
-        public List<string> ApkPathList { get => apkPathList; set => apkPathList = value; }
     }
 }
