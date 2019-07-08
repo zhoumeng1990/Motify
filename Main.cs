@@ -86,12 +86,31 @@ namespace ModifyPackage
                 configuration.AppSettings.Settings["signerAlias"].Value = tb_alias.Text;
                 configuration.Save();
                 MessageBox.Show(ConfigurationManager.AppSettings["apktoolPath"]);*/
-               /* MotifyPackage.Properties.Settings.Default.apktoolPath = tb_apktool.Text;
-                MotifyPackage.Properties.Settings.Default.signerPath = tb_signer_path.Text;
-                MotifyPackage.Properties.Settings.Default.signerPassword = tb_signer_password.Text;
-                MotifyPackage.Properties.Settings.Default.signerAlias = tb_alias.Text;
-                MotifyPackage.Properties.Settings.Default.Save();*/
+                /* MotifyPackage.Properties.Settings.Default.apktoolPath = tb_apktool.Text;
+                 MotifyPackage.Properties.Settings.Default.signerPath = tb_signer_path.Text;
+                 MotifyPackage.Properties.Settings.Default.signerPassword = tb_signer_password.Text;
+                 MotifyPackage.Properties.Settings.Default.signerAlias = tb_alias.Text;
+                 MotifyPackage.Properties.Settings.Default.Save();*/
 
+                /*DialogResult MsgBoxResult;//设置对话框的返回值  
+                MsgBoxResult = MessageBox.Show("请选择你要按下的按钮",//对话框的显示内容   
+                "提示",//对话框的标题   
+                MessageBoxButtons.YesNoCancel,//定义对话框的按钮，这里定义了YSE和NO两个按钮   
+                MessageBoxIcon.Exclamation,//定义对话框内的图表式样，这里是一个黄色三角型内加一个感叹号   
+                MessageBoxDefaultButton.Button2);//定义对话框的按钮式样  
+                if (MsgBoxResult == DialogResult.Yes)//如果对话框的返回值是YES（按"Y"按钮）  
+                {
+                    Console.WriteLine(" 你选择了按下”Yes“的按钮！");
+                }
+                if (MsgBoxResult == DialogResult.No)//如果对话框的返回值是NO（按"N"按钮）  
+                {
+                    Console.WriteLine(" 你选择了按下”No“的按钮！");
+                }
+
+                if (MsgBoxResult == DialogResult.Cancel)
+                {
+                    Console.WriteLine(" 你选择了按下”cancle“的按钮！");
+                }*/
                 mainControl.ExecuteProcess(mainEntity);
             }
         }
