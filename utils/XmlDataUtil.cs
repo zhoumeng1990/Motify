@@ -9,7 +9,7 @@ namespace MotifyPackage.utils
 {
     class XmlDataUtil
     {
-        //private readonly string xmlPath = Environment.CurrentDirectory + "configSetting.xml";
+        //private static readonly string xmlPath = Environment.CurrentDirectory + "configSetting.xml";
         private static readonly string xmlPath = "D://configSetting.xml";
 
         public static void CreateXMLForData(Dictionary<String, String> keyValuePairs)

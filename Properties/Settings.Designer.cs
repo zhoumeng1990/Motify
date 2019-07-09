@@ -22,53 +22,5 @@ namespace MotifyPackage.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string apktoolPath {
-            get {
-                return ((string)(this["apktoolPath"]));
-            }
-            set {
-                this["apktoolPath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string signerPath {
-            get {
-                return ((string)(this["signerPath"]));
-            }
-            set {
-                this["signerPath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string signerPassword {
-            get {
-                return ((string)(this["signerPassword"]));
-            }
-            set {
-                this["signerPassword"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string signerAlias {
-            get {
-                return ((string)(this["signerAlias"]));
-            }
-            set {
-                this["signerAlias"] = value;
-            }
-        }
     }
 }
