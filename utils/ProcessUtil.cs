@@ -37,8 +37,7 @@ namespace ModifyPackage.utils
                 return;
             }*/
 
-            Process process = new Process();  //创建进程对象
-            InitProcess(process);
+            Process process = InitProcess();
             process.StandardInput.WriteLine("keytool -list  -v -keystore " + mainEntity.SignerPath + " -storepass " + mainEntity.SignerPassword);
             process.StandardInput.WriteLine("exit");
 
@@ -82,8 +81,9 @@ namespace ModifyPackage.utils
         }
 
         //抽取并初始化进程
-        private void InitProcess(Process process)
+        private Process InitProcess()
         {
+            Process process = new Process();
             process.StartInfo.FileName = "cmd.exe";  //要执行的程序名
             process.StartInfo.UseShellExecute = false;  //不使用系统外壳程序启动进程
             process.StartInfo.CreateNoWindow = true;  //不显示dos程序窗口
@@ -94,6 +94,7 @@ namespace ModifyPackage.utils
             process.StartInfo.RedirectStandardError = false;
 
             process.Start();  //进程开始
+            return process;
         }
 
         //执行反编译
@@ -102,8 +103,7 @@ namespace ModifyPackage.utils
             string fileName = mainEntity.ApkPath;
             ThreadPool.QueueUserWorkItem(h =>
             {
-                Process process = new Process();  //创建进程对象
-                InitProcess(process);
+                Process process = InitProcess();
 
                 //输入dos命令
                 process.StandardInput.WriteLine(Path.GetPathRoot(fileName).Substring(0,2));
@@ -126,8 +126,7 @@ namespace ModifyPackage.utils
         public void ExecuteBuildCMD()
         {
             string fileName = mainEntity.ApkPath;
-            Process process = new Process();  //创建进程对象
-            InitProcess(process);
+            Process process = InitProcess();
 
             string buildName = Path.GetFileNameWithoutExtension(fileName).IndexOf(" ") > 0 ? "\"" + Path.GetFileNameWithoutExtension(fileName) + "\"" : Path.GetFileNameWithoutExtension(fileName);
 
@@ -154,8 +153,7 @@ namespace ModifyPackage.utils
                 iProcess.GoOnDecode();
                 return;
             }
-            Process process = new Process();  //创建进程对象
-            InitProcess(process);
+            Process process = InitProcess();
             // 改名方法
             string directorySigner = mainEntity.DirectoryName + "\\dist\\" + Path.GetFileNameWithoutExtension(mainEntity.ApkPath) + mainEntity.ChanneList[0];
             FileInfo fileInfo = new FileInfo(mainEntity.DirectoryName + "\\dist\\" + Path.GetFileName(mainEntity.ApkPath));

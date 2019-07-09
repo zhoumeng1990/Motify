@@ -26,7 +26,6 @@ namespace ModifyPackage.utils
             DirectoryInfo theFolder = new DirectoryInfo(filePath);
             foreach (FileInfo file in theFolder.GetFiles())
             {
-                Console.WriteLine("file.Name:{0}", file.Name);
                 if (file.Name.Equals("AndroidManifest.xml"))
                 {
                     AnalysisManifestXML(file.FullName);
