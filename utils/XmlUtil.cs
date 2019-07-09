@@ -17,6 +17,7 @@ namespace ModifyPackage.utils
             this.mainEntity = mainEntity;
         }
 
+        //拿到manifest
         public void AnalysisXML(string filePath)
         {
             if (!Directory.Exists(filePath))

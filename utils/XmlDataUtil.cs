@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Xml;
 
 namespace MotifyPackage.utils
 {
     class XmlDataUtil
     {
-        //private static readonly string xmlPath = Environment.CurrentDirectory + "configSetting.xml";
+        // xml存放路径
         private static readonly string xmlPath = "D://configSetting.xml";
 
         public static void CreateXMLForData(Dictionary<String, String> keyValuePairs)
