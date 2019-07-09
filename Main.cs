@@ -3,7 +3,9 @@ using ModifyPackage.entify;
 using ModifyPackage.events;
 using ModifyPackage.interfaces;
 using ModifyPackage.utils;
+using MotifyPackage.utils;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Windows.Forms;
@@ -21,6 +23,31 @@ namespace ModifyPackage
             mainEntity = new MainEntity();
             SetDragEvent(tb_file_path, tb_apktool, tb_package_name, tb_loading_path, tb_icon_path, tb_signer_path, tb_channel);
             InitDataShow();
+            Dictionary<string, string> dictionary = XmlDataUtil.GetManifestXML();
+            if (dictionary != null)
+            {
+                foreach(KeyValuePair<String, String> keyValue in dictionary)
+                {
+                    switch (keyValue.Key)
+                    {
+                        case "apktoolPath":
+                            tb_apktool.Text = keyValue.Value;
+                            break;
+
+                        case "signerPath":
+                            tb_signer_path.Text = keyValue.Value;
+                            break;
+
+                        case "signerPassword":
+                            tb_signer_password.Text = keyValue.Value;
+                            break;
+
+                        case "alias":
+                            tb_alias.Text = keyValue.Value;
+                            break;
+                    }
+                }
+            }
         }
 
         private void SetDragEvent(params TextBox[] tbs)

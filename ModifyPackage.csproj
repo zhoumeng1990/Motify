@@ -93,6 +93,7 @@
     <Compile Include="utils\CommonUtil.cs" />
     <Compile Include="utils\FileUtil.cs" />
     <Compile Include="utils\ProcessUtil.cs" />
+    <Compile Include="utils\XmlDataUtil.cs" />
     <Compile Include="utils\XmlUtil.cs" />
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

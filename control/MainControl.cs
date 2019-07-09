@@ -1,6 +1,7 @@
 ﻿using ModifyPackage.entify;
 using ModifyPackage.interfaces;
 using ModifyPackage.utils;
+using MotifyPackage.utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -52,6 +53,16 @@ namespace ModifyPackage.control
         public void GetAliasEnd(string alias)
         {
             iMain.AliasValue(alias ?? "");
+
+            Dictionary<string, string> keyValues = new Dictionary<string, string>
+            {
+                { "apktoolPath", mainEntity.ApktoolPath },
+                { "signerPath", mainEntity.SignerPath },
+                { "signerPassword", mainEntity.SignerPassword },
+                { "alias", mainEntity.Alias }
+            };
+            XmlDataUtil.CreateXMLForData(keyValues);
+
             fileUtil = new FileUtil();
             GetChannelList();
             if (CommonUtil.IsEmpty(mainEntity.ApktoolPath))
