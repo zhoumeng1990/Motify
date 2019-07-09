@@ -24,6 +24,7 @@ namespace MotifyPackage.utils
             xmlDocument.Save(xmlPath);
         }
 
+        //创建子节点存储数据
         private static void CreateNode(XmlDocument xmlDoc, XmlNode parentNode, Dictionary<String, String> keyValuePair)
         {
             foreach (KeyValuePair<String, String> keyValue in keyValuePair)
@@ -36,6 +37,7 @@ namespace MotifyPackage.utils
             }
         }
 
+        //获取xml里面存储的数据
         public static Dictionary<string, string> GetManifestXML()
         {
             if (!File.Exists(xmlPath))
@@ -51,12 +53,6 @@ namespace MotifyPackage.utils
             keyValues.Add("signerPath", xmlNode.SelectSingleNode("signerPath").InnerText);
             keyValues.Add("signerPassword", xmlNode.SelectSingleNode("signerPassword").InnerText);
             keyValues.Add("alias", xmlNode.SelectSingleNode("alias").InnerText);
-            Console.WriteLine("apktoolPath:" + xmlNode.SelectSingleNode("apktoolPath").InnerText);
-            Console.WriteLine("signerPath:" + xmlNode.SelectSingleNode("signerPath").InnerText);
-            Console.WriteLine("signerPassword:" + xmlNode.SelectSingleNode("signerPassword").InnerText);
-            Console.WriteLine("alias2:" + xmlNode.SelectSingleNode("alias").InnerText);
-
-            //XmlNodeList xmlNodeList = doc.GetElementsByTagName("application");
 
             return keyValues;
         }
