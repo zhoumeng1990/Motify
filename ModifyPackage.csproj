@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{784C44EF-D3DF-414D-A7A9-090AD329489B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>MotifyPackage</RootNamespace>
+    <RootNamespace>ModifyPackage</RootNamespace>
     <AssemblyName>ModifyPackage</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -96,11 +96,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Setting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setting.Designer.cs">
+      <DependentUpon>Setting.cs</DependentUpon>
+    </Compile>
     <Compile Include="utils\CommonUtil.cs" />
     <Compile Include="utils\FileUtil.cs" />
     <Compile Include="utils\ProcessUtil.cs" />
     <Compile Include="utils\XmlDataUtil.cs" />
     <Compile Include="utils\XmlUtil.cs" />
+    <Compile Include="utils\YMLUtil.cs" />
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>

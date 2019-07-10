@@ -1,7 +1,9 @@
 ﻿using ModifyPackage.entify;
 using ModifyPackage.interfaces;
+using MotifyPackage.utils;
 using System;
 using System.IO;
+using System.Windows.Forms;
 using System.Xml;
 
 namespace ModifyPackage.utils
@@ -20,32 +22,87 @@ namespace ModifyPackage.utils
         //拿到manifest
         public void AnalysisXML(string filePath)
         {
+            //bool notExecute = false;
             if (!Directory.Exists(filePath))
             {
                 return;
             }
             DirectoryInfo theFolder = new DirectoryInfo(filePath);
-            foreach (FileInfo file in theFolder.GetFiles())
+            /*foreach (FileInfo file in theFolder.GetFiles())
             {
                 if (file.Name.Equals("AndroidManifest.xml"))
                 {
                     AnalysisManifestXML(file.FullName);
-                    return;
+                    notExecute = true;
                 }
-            }
 
-            foreach (DirectoryInfo directoryInfo in theFolder.GetDirectories())
-            {
-                DirectoryInfo directoryInfos = new DirectoryInfo(directoryInfo.FullName);
-                foreach (FileInfo file in directoryInfos.GetFiles())
+                if (file.Name.Equals("apktool.yml"))
                 {
-                    if (file.Name.Equals("AndroidManifest.xml"))
+                    YMLUtil yMLUtil = new YMLUtil(file.FullName);
+                    string targetSdkVersion = yMLUtil.read("targetSdkVersion");
+                    if (targetSdkVersion.Contains("\'"))
                     {
-                        AnalysisManifestXML(file.FullName);
-                        return;
+                        targetSdkVersion = targetSdkVersion.Replace("\'", "");
                     }
+                    Console.WriteLine("targetSdkVersion:" + targetSdkVersion);
+                    notExecute = true;
+                }
+            }*/
+            if (!XMLHelper(theFolder))
+            {
+                foreach (DirectoryInfo directoryInfo in theFolder.GetDirectories())
+                {
+                    DirectoryInfo directoryInfos = new DirectoryInfo(directoryInfo.FullName);
+                    XMLHelper(theFolder);
+                    /*foreach (FileInfo file in directoryInfos.GetFiles())
+                    {
+                        if (file.Name.Equals("AndroidManifest.xml"))
+                        {
+                            AnalysisManifestXML(file.FullName);
+                            return;
+                        }
+                    }*/
                 }
             }
+        }
+
+        private bool XMLHelper(DirectoryInfo theFolder)
+        {
+            bool notExecute = false;
+            string manifestPath = null;
+            foreach (FileInfo file in theFolder.GetFiles())
+            {
+                if (file.Name.Equals("AndroidManifest.xml"))
+                {
+                    manifestPath = file.FullName;
+                    notExecute = true;
+                }
+
+                if (file.Name.Equals("apktool.yml"))
+                {
+                    YMLUtil yMLUtil = new YMLUtil(file.FullName);
+                    string targetSdkVersion = yMLUtil.Read("targetSdkVersion");
+                    if (targetSdkVersion.Contains("\'"))
+                    {
+                        targetSdkVersion = targetSdkVersion.Replace("\'", "");
+                    }
+                    if (int.Parse(targetSdkVersion) < 23)
+                    {
+                        MessageBox.Show("小于23");
+                    }else if (int.Parse(targetSdkVersion) < 26)
+                    {
+                        yMLUtil.Modify("targetSdkVersion", "\'26\'");
+                        yMLUtil.Save();
+                    }
+                    Console.WriteLine("targetSdkVersion:" + targetSdkVersion);
+                }
+            }
+            if (!CommonUtil.IsEmpty(manifestPath))
+            {
+                notExecute = true;
+                AnalysisManifestXML(manifestPath);
+            }
+            return notExecute;
         }
 
         private void AnalysisManifestXML(string manifestPath)
