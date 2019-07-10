@@ -75,11 +75,15 @@ namespace ModifyPackage.control
                 {
                     string[] apkPathFiles = Directory.GetFiles(mainEntity.ApkPath);
                     mainEntity.ApkPathList = new List<string>();
+                    mainEntity.PackageNameList = new List<string>();
+                    int i = 0;
                     foreach (var apkPathFile in apkPathFiles)
                     {
                         if (File.Exists(apkPathFile)&& Path.GetExtension(apkPathFile).Equals(".apk"))
                         {
+                            ++i;
                             mainEntity.ApkPathList.Add(apkPathFile);
+                            mainEntity.PackageNameList.Add(mainEntity.PackageName + i);
                         }
                     }
                     if (mainEntity.ApkPathList.Count > 0)

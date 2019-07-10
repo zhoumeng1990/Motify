@@ -129,8 +129,6 @@ namespace MotifyPackage.utils
                         sb.Append(": ");
                         sb.Append(node.NodeValue);
                     }
-
-                    //Console.WriteLine("node.value的第 {0} 个值为：{1}", i, node.value);
                 }
                 else
                 {
