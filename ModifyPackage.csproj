@@ -82,6 +82,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="entify\Node.cs" />
     <Compile Include="events\TextBoxEvent.cs" />
     <Compile Include="interfaces\IProcess.cs" />
     <Compile Include="control\MainControl.cs" />

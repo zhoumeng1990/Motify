@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModifyPackage.entify;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -37,15 +38,17 @@ namespace MotifyPackage.utils
 
                 String[] kv = Regex.Split(line, ":", RegexOptions.IgnoreCase);
                 FindPreSpace(line);
-                Node node = new Node();
-                node.Space = FindPreSpace(line);
-                node.Name = kv[0].Trim();
+                Node node = new Node
+                {
+                    Space = FindPreSpace(line),
+                    NodeName = kv[0].Trim()
+                };
 
                 // 去除前后空白符
                 String fline = line.Trim();
                 int first = fline.IndexOf(':');
-                node.Value = first == fline.Length - 1 ? null : fline.Substring(first + 2, fline.Length - first - 2);
-                node.Parent = FindParent(node.Space);
+                node.NodeValue = first == fline.Length - 1 ? null : fline.Substring(first + 2, fline.Length - first - 2);
+                node.ParentNode = FindParent(node.Space);
                 nodeList.Add(node);
             }
 
@@ -58,7 +61,7 @@ namespace MotifyPackage.utils
             Node node = FindNodeByKey(key);
             if (node != null)
             {
-                node.Value = value;
+                node.NodeValue = value;
             }
         }
 
@@ -68,7 +71,7 @@ namespace MotifyPackage.utils
             Node node = FindNodeByKey(key);
             if (node != null)
             {
-                return node.Value;
+                return node.NodeValue;
             }
             return null;
         }
@@ -80,7 +83,7 @@ namespace MotifyPackage.utils
             for (int i = 0; i < nodeList.Count; i++)
             {
                 Node node = nodeList[i];
-                if (node.Name == ks[ks.Length - 1])
+                if (node.NodeName == ks[ks.Length - 1])
                 {
                     // 判断父级
                     Node tem = node;
@@ -88,11 +91,11 @@ namespace MotifyPackage.utils
                     int count = 1;
                     for (int j = ks.Length - 2; j >= 0; j--)
                     {
-                        if (tem.Parent.Name == ks[j])
+                        if (tem.ParentNode.NodeName == ks[j])
                         {
                             count++;
                             // 继续检查父级
-                            tem = tem.Parent;
+                            tem = tem.ParentNode;
                         }
                     }
 
@@ -118,13 +121,13 @@ namespace MotifyPackage.utils
                 {
                     sb.Append("  ");
                 }
-                sb.Append(node.Name);
-                if (node.Value != null)
+                sb.Append(node.NodeName);
+                if (node.NodeValue != null)
                 {
-                    if (!node.Name.Contains(node.Value))
+                    if (!node.NodeName.Contains(node.NodeValue))
                     {
                         sb.Append(": ");
-                        sb.Append(node.Value);
+                        sb.Append(node.NodeValue);
                     }
 
                     //Console.WriteLine("node.value的第 {0} 个值为：{1}", i, node.value);
@@ -147,7 +150,7 @@ namespace MotifyPackage.utils
             for (int i = 0; i < nodeList.Count; i++)
             {
                 Node node = nodeList[i];
-                if (node.Parent == null)
+                if (node.ParentNode == null)
                 {
                     parentNode.Add(node);
                 }
@@ -168,7 +171,6 @@ namespace MotifyPackage.utils
             nodeList = fNodeList;
         }
 
-
         // 层级
         int tier = 0;
         // 查找孩子并进行分层
@@ -180,7 +182,7 @@ namespace MotifyPackage.utils
             for (int i = 0; i < nodeList.Count; i++)
             {
                 Node item = nodeList[i];
-                if (item.Parent == node)
+                if (item.ParentNode == node)
                 {
                     item.Tier = tier;
                     fNodeList.Add(item);
@@ -233,21 +235,6 @@ namespace MotifyPackage.utils
                 // 如果没有找到 返回null
                 return null;
             }
-        }
-
-        // 私有节点类
-        private class Node
-        {
-            // 名称
-            public String Name { get; set; }
-            // 值
-            public String Value { get; set; }
-            // 父级
-            public Node Parent { get; set; }
-            // 前缀空格
-            public int Space { get; set; }
-            // 所属层级
-            public int Tier { get; set; }
         }
     }
 }
