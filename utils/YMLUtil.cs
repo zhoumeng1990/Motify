@@ -20,7 +20,7 @@ namespace MotifyPackage.utils
         public YMLUtil(String path)
         {
             this.path = path;
-            this.lines = File.ReadAllLines(path);
+            lines = File.ReadAllLines(path);
 
             for (int i = 0; i < lines.Length; i++)
             {
@@ -52,7 +52,7 @@ namespace MotifyPackage.utils
                 nodeList.Add(node);
             }
 
-            this.Formatting();
+            Formatting();
         }
 
         // 修改值 允许key为多级 例如：spring.datasource.url
@@ -111,11 +111,12 @@ namespace MotifyPackage.utils
         // 保存到文件中
         public void Save()
         {
-            StreamWriter stream = File.CreateText(this.path);
+            StreamWriter stream = File.CreateText(path);
+            StringBuilder sb = new StringBuilder();
             for (int i = 0; i < nodeList.Count; i++)
             {
+                sb.Clear();
                 Node node = nodeList[i];
-                StringBuilder sb = new StringBuilder();
                 // 放入前置空格
                 for (int j = 0; j < node.Tier; j++)
                 {
