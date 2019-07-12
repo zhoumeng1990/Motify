@@ -155,7 +155,9 @@ namespace ModifyPackage.utils
             }
             Process process = InitProcess();
             // 改名方法
-            string directorySigner = mainEntity.DirectoryName + "\\dist\\" + Path.GetFileNameWithoutExtension(mainEntity.ApkPath) + mainEntity.ChanneList[0];
+            string directorySigner = mainEntity.DirectoryName + "\\dist\\" + Path.GetFileNameWithoutExtension(mainEntity.ApkPath) + 
+                (mainEntity.ChanneList[0].Equals("0") ? "" : mainEntity.ChanneList[0]) + "_signer";
+
             FileInfo fileInfo = new FileInfo(mainEntity.DirectoryName + "\\dist\\" + Path.GetFileName(mainEntity.ApkPath));
             if (File.Exists(directorySigner + ".apk"))
             {
