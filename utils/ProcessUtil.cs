@@ -25,18 +25,6 @@ namespace ModifyPackage.utils
         //获取别名
         public void GetAlisa()
         {
-            /*if (CommonUtil.IsEmpty(mainEntity.SignerPath))
-            {
-                MessageBox.Show("请输入签名文件");
-                return;
-            }
-
-            if (!File.Exists(mainEntity.SignerPath))
-            {
-                MessageBox.Show("请输入签名文件密码");
-                return;
-            }*/
-
             Process process = InitProcess();
             process.StandardInput.WriteLine("keytool -list  -v -keystore " + mainEntity.SignerPath + " -storepass " + mainEntity.SignerPassword);
             process.StandardInput.WriteLine("exit");
@@ -112,8 +100,6 @@ namespace ModifyPackage.utils
                 process.StandardInput.WriteLine("exit");
 
                 string strRst = process.StandardOutput.ReadToEnd(); //获取结果 
-                Console.WriteLine("已执行了：{0}", strRst);
-                //MessageBox.Show(strRst);
 
                 process.WaitForExit();  //等待命令结束
                 process.Close();  //进程结束
