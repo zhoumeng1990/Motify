@@ -83,7 +83,17 @@ namespace ModifyPackage.control
                         {
                             ++i;
                             mainEntity.ApkPathList.Add(apkPathFile);
-                            mainEntity.PackageNameList.Add(mainEntity.PackageName + i);
+                            if (mainEntity.PackageNameList == null)
+                            {
+                                mainEntity.PackageNameList = new List<string>();
+                            }
+                            if ( mainEntity.PackageNameList.Count < i)
+                            {
+                                if (!CommonUtil.IsEmpty(mainEntity.PackageName))
+                                {
+                                    mainEntity.PackageNameList.Add(mainEntity.PackageName + i);
+                                }
+                            }
                         }
                     }
                     if (mainEntity.ApkPathList.Count > 0)

@@ -112,6 +112,11 @@ namespace ModifyPackage.utils
             XmlElement xmlNode = (XmlElement)doc.SelectSingleNode("manifest");
             string package = xmlNode.GetAttribute("package");
             Console.WriteLine("value is {0}", package);
+            if (mainEntity.PackageNameList != null && mainEntity.PackageNameList.Count > 0)
+            {
+                mainEntity.PackageName = mainEntity.PackageNameList[0];
+                mainEntity.PackageNameList.RemoveAt(0);
+            }
             if (!CommonUtil.IsEmpty(mainEntity.PackageName)) {
                 xmlNode.Attributes["package"].Value = mainEntity.PackageName;
             }
