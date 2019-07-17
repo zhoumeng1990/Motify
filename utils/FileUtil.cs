@@ -10,7 +10,7 @@ namespace ModifyPackage.utils
     {
         private static StringBuilder stringBuilder;
 
-        public List<string> GetChannelList(string filePath)
+        public List<string> GetTxtDataList(string filePath)
         {
             if (File.Exists(filePath) && Path.GetExtension(filePath).Equals(".txt"))
             {

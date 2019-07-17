@@ -88,6 +88,11 @@ namespace ModifyPackage
                 mainEntity.ChannePath = tb_channel.Text;
                 mainEntity.ApktoolPath = tb_apktool.Text;
 
+                if (!CommonUtil.IsEmpty(mainEntity.AppName)&& File.Exists(mainEntity.AppName))
+                {
+                    mainEntity.PackageNameList = new FileUtil().GetTxtDataList(mainEntity.AppName);
+                }
+
                 /*DialogResult MsgBoxResult;//设置对话框的返回值  
                 MsgBoxResult = MessageBox.Show("请选择你要按下的按钮",//对话框的显示内容   
                 "提示",//对话框的标题   

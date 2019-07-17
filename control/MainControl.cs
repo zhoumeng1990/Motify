@@ -164,7 +164,7 @@ namespace ModifyPackage.control
         {
             if (!CommonUtil.IsEmpty(mainEntity.ChannePath))
             {
-                mainEntity.ChanneList = fileUtil.GetChannelList(mainEntity.ChannePath);
+                mainEntity.ChanneList = fileUtil.GetTxtDataList(mainEntity.ChannePath);
             }
             else
             {
